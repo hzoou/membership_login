@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+</head>
+<body>
+<form class="container">
+    <div class="title">회원가입</div>
+    <div>아이디</div>
+    <input type="text" class="inputText" id="id" />
+    <span id="idTxt"></span>
+    <div>비밀번호</div>
+    <input type="password" class="inputText" id="pw"/>
+    <span id="pwTxt"></span>
+    <div>비밀번호 재확인</div>
+    <input type="password" class="inputText" id="pw2"/>
+    <span id="pw2Txt"></span>
+    <div>이름</div>
+    <input type="text" class="inputText"/>
+    <div>생년월일</div>
+    <div class="birth">
+        <input type="text" class="inputText" placeholder="년(4자)" id="year"/>
+        <div style="width: 25px"></div>
+        <select class="birth select" id="month">
+            <option>월</option>
+        </select>
+        <div style="width: 25px"></div>
+        <input type="text" class="inputText" placeholder="일" id="day"/>
+    </div>
+    <span id="birthTxt"></span>
+    <div>성별</div>
+    <select class="gender" id="gender">
+        <option>성별</option>
+        <option id="m">남자</option>
+        <option id="f">여자</option>
+    </select>
+    <span id="genderTxt" style="color: #ff0000">성별을 선택하세요.</span>
+    <div>이메일</div>
+    <input type="text" class="inputText" id="email"/>
+    <span id="emailTxt"></span>
+    <div>휴대전화</div>
+    <input type="text" class="inputText" placeholder="- 없이 입력해주세요. 예) 0101231234" id="phone"/>
+    <span id="phoneTxt"></span>
+    <div>관심사</div>
+    <input type="text" class="inputText" id="interest"/>
+    <span id="interestTxt"></span>
+
+    <div>
+        <a href="popup.html" style="color: #000;">약관에 동의합니다.</a>
+        <input type="checkbox" disabled="disabled"/>
+    </div>
+
+    <div class="button">
+        <input type="reset" value="초기화" id="reset"/>
+        <div style="width: 25px"></div>
+        <input type="submit" value="가입하기" id="submit"/>
+    </div>
+</form>
+</body>
+</html>
