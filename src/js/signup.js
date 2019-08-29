@@ -78,6 +78,19 @@ const check = {
             validation = true;
             text.innerText = '';
         }
+    },
+
+    email() {
+        const regex = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+        const text = document.getElementById('emailTxt');
+        if (!regex.test(email.value)) {
+            validation = false;
+            text.innerText = '이메일 주소를 다시 확인해주세요.';
+            text.style.color = color.x;
+        } else {
+            validation = true;
+            text.innerText = '';
+        }
     }
 };
 
@@ -96,6 +109,7 @@ const year = document.getElementById('year');
 const month = document.getElementById('month');
 const day = document.getElementById('day');
 const gender = document.getElementById('gender');
+const email = document.getElementById('email');
 
 id.addEventListener("blur", check.idReg);
 pw.addEventListener("change", check.pwSame);
@@ -104,3 +118,4 @@ year.addEventListener("blur", check.year);
 month.addEventListener("change", check.day);
 day.addEventListener("blur", check.day);
 gender.addEventListener("change", check.gender);
+email.addEventListener("blur", check.email);
