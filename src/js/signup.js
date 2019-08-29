@@ -91,6 +91,19 @@ const check = {
             validation = true;
             text.innerText = '';
         }
+    },
+
+    phone() {
+        const regex = /^010[0-9]{7,8}$/;
+        const text = document.getElementById('phoneTxt');
+        if (!regex.test(phone.value)) {
+            validation = false;
+            text.innerText = '형식에 맞지 않는 번호입니다.';
+            text.style.color = color.x;
+        } else {
+            validation = true;
+            text.innerText = '';
+        }
     }
 };
 
@@ -110,6 +123,7 @@ const month = document.getElementById('month');
 const day = document.getElementById('day');
 const gender = document.getElementById('gender');
 const email = document.getElementById('email');
+const phone = document.getElementById('phone');
 
 id.addEventListener("blur", check.idReg);
 pw.addEventListener("change", check.pwSame);
@@ -119,3 +133,4 @@ month.addEventListener("change", check.day);
 day.addEventListener("blur", check.day);
 gender.addEventListener("change", check.gender);
 email.addEventListener("blur", check.email);
+phone.addEventListener("blur", check.phone);
