@@ -18,6 +18,16 @@ const check = {
         }
     },
 
+    pwReg() {
+        const regex = '';
+        const text = document.getElementById('pwTxT');
+        if (regex.test(pw.value)) {
+            validation = true;
+            text.innerText = '안전한 비밀번호입니다.';
+            text.style.color = color.o;
+        }
+    },
+
     pwSame() {
         const text = document.getElementById('pw2Txt');
         if (pw.value === pw2.value) {
@@ -34,6 +44,24 @@ const check = {
             validation = false;
             text.innerText = '';
         }
+    },
+
+    year() {
+        const regex = /^[0-9]{4}$/;
+        const text = document.getElementById('birthTxt');
+        const age = 2019 - year.value;
+        if (!regex.test(year.value)) {
+            validation = false;
+            text.innerText = '태어난 년도 4자리를 정확하게 입력하세요.';
+            text.style.color = color.x;
+        } else if (age < 14) {
+            validation = false;
+            text.innerText = '만 14세 이상만 가입 가능합니다';
+            text.style.color = color.x;
+        } else {
+            validation = true;
+            text.innerText = '';
+        }
     }
 };
 
@@ -48,7 +76,9 @@ let validation = false;
 const id = document.getElementById('id');
 const pw = document.getElementById('pw');
 const pw2 = document.getElementById('pw2');
+const year = document.getElementById('year');
 
 id.addEventListener("blur", check.idReg);
 pw.addEventListener("change", check.pwSame);
 pw2.addEventListener("blur", check.pwSame);
+year.addEventListener("blur", check.year);
