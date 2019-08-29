@@ -66,6 +66,18 @@ const check = {
             validation = true;
             text.innerText = '';
         }
+    },
+
+    gender() {
+        const text = document.getElementById('genderTxt');
+        if(!gender.options[gender.selectedIndex].id) {
+            validation = false;
+            text.innerText = '성별을 선택하세요.';
+            text.style.color = color.x;
+        } else {
+            validation = true;
+            text.innerText = '';
+        }
     }
 };
 
@@ -83,6 +95,7 @@ const pw2 = document.getElementById('pw2');
 const year = document.getElementById('year');
 const month = document.getElementById('month');
 const day = document.getElementById('day');
+const gender = document.getElementById('gender');
 
 id.addEventListener("blur", check.idReg);
 pw.addEventListener("change", check.pwSame);
@@ -90,3 +103,4 @@ pw2.addEventListener("blur", check.pwSame);
 year.addEventListener("blur", check.year);
 month.addEventListener("change", check.day);
 day.addEventListener("blur", check.day);
+gender.addEventListener("change", check.gender);
