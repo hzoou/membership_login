@@ -18,16 +18,6 @@ const check = {
         }
     },
 
-    pwReg() {
-        const regex = '';
-        const text = document.getElementById('pwTxT');
-        if (regex.test(pw.value)) {
-            validation = true;
-            text.innerText = '안전한 비밀번호입니다.';
-            text.style.color = color.o;
-        }
-    },
-
     pwSame() {
         const text = document.getElementById('pw2Txt');
         if (pw.value === pw2.value) {
@@ -62,6 +52,20 @@ const check = {
             validation = true;
             text.innerText = '';
         }
+    },
+
+    day() {
+        const days = ['false', 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        const text = document.getElementById('birthTxt');
+        const m = month.options[month.selectedIndex].value;
+        if (!(0 < day.value && day.value <= days[m])) {
+            validation = false;
+            text.innerText = '태어난 날짜를 다시 확인해주세요.';
+            text.style.color = color.x;
+        } else {
+            validation = true;
+            text.innerText = '';
+        }
     }
 };
 
@@ -77,8 +81,12 @@ const id = document.getElementById('id');
 const pw = document.getElementById('pw');
 const pw2 = document.getElementById('pw2');
 const year = document.getElementById('year');
+const month = document.getElementById('month');
+const day = document.getElementById('day');
 
 id.addEventListener("blur", check.idReg);
 pw.addEventListener("change", check.pwSame);
 pw2.addEventListener("blur", check.pwSame);
 year.addEventListener("blur", check.year);
+month.addEventListener("change", check.day);
+day.addEventListener("blur", check.day);
