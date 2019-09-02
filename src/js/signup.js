@@ -270,6 +270,33 @@ const action = {
         });
     },
 
+    makeAgreeModal() {
+        agreementModal.style.display = "block";
+        document.getElementsByClassName('agreement')[0].firstElementChild.className = 'closeBtn';
+        action.closeModal();
+        action.admitAgreeModal();
+    },
+
+    admitAgreeModal() {
+        const agreementModal = document.getElementById("agreementModal");
+        const agreementContent = document.getElementsByClassName('agreementContent')[0];
+        const agreementBtn = document.getElementsByClassName('agreementBtn')[0];
+        agreementContent.addEventListener("scroll", () => {
+            console.log(agreementContent.scrollTop)
+            if (agreementContent.scrollTop == 558) {
+                agreementBtn.style.border = '1px solid #0aa603';
+                agreementBtn.style.background = '#0aa603';
+                agreementBtn.style.cursor = 'pointer';
+                agreementBtn.disabled = false;
+            }
+        });
+        agreementBtn.addEventListener("click", () => {
+            validation.agreement = true;
+            agreement.checked = true;
+            agreementModal.style.display = "none";
+        });
+    },
+
     closeModal() {
         const closeBtn = document.querySelectorAll('.closeBtn');
         [].forEach.call(closeBtn, (el) => {
@@ -326,5 +353,6 @@ elements.email.addEventListener("blur", check.email);
 elements.phone.addEventListener("blur", check.phone);
 elements.interest.addEventListener("keyup", check.interest);
 elements.interest.addEventListener("keyup", action.addInterest);
+elements.agreeBtn.addEventListener("click", action.makeAgreeModal);
 elements.resetBtn.addEventListener("click", action.resetBtn);
 elements.submitBtn.addEventListener("click", action.submitForm);
