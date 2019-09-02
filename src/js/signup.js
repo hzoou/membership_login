@@ -88,7 +88,7 @@ window.onlaod = check = {
     id() {
         const regex = /^[a-z0-9]{5,20}/g;
         const text = document.getElementById('idTxt');
-        if (regex.test(id.value)) {
+        if (regex.test(init.elements.id.value)) {
             init.validation.id = true;
             text.innerText = '사용 가능한 아이디입니다.';
             text.style.color = check.color.o;
@@ -101,7 +101,7 @@ window.onlaod = check = {
 
     pw() {
         const text = document.getElementById('pwTxt');
-        if (pw.value.length < 8 || pw.value.length > 16) {
+        if (init.elements.pw.value.length < 8 || init.elements.pw.value.length > 16) {
             init.validation.pw = false;
             text.innerText = '8자 이상 16자 이하로 입력해주세요.';
             text.style.color = check.color.x;
@@ -130,7 +130,7 @@ window.onlaod = check = {
 
     pwSame() {
         const text = document.getElementById('pw2Txt');
-        if (pw.value === pw2.value) {
+        if (init.elements.pw.value === init.elements.pw2.value) {
             init.validation.pw2 = true;
             text.innerText = '비밀번호가 일치합니다.';
             text.style.color = check.color.o;
@@ -140,7 +140,7 @@ window.onlaod = check = {
             text.style.color = check.color.x;
         }
 
-        if (!pw2.value) {
+        if (!init.elements.pw2.value) {
             init.validation.pw2 = false;
             text.innerText = '';
         }
@@ -155,12 +155,12 @@ window.onlaod = check = {
         const regex = /^[0-9]{4}$/;
         const text = document.getElementById('birthTxt');
         const nowYear = new Date().getFullYear();
-        const age = nowYear - year.value;
-        if (!regex.test(year.value)) {
+        const age = nowYear - init.elements.year.value;
+        if (!regex.test(init.elements.year.value)) {
             init.validation.year = false;
             text.innerText = '태어난 년도 4자리를 정확하게 입력하세요.';
             text.style.color = check.color.x;
-        } else if (year.value > nowYear) {
+        } else if (init.elements.year.value > nowYear) {
             init.validation.year = false;
             text.innerText = '미래에서 오셨군요.';
             text.style.color = check.color.x;
@@ -195,13 +195,8 @@ window.onlaod = check = {
     },
 
     gender() {
-        const text = document.getElementById('genderTxt');
-        if(!init.elements.gender.options[init.elements.gender.selectedIndex].id) {
-            init.validation.gender = false;
-        } else {
-            init.validation.gender = true;
-            text.innerText = '';
-        }
+        if(!init.elements.gender.options[init.elements.gender.selectedIndex].id) init.validation.gender = false;
+        else init.validation.gender = true;
     },
 
     email() {
@@ -250,15 +245,16 @@ window.onlaod = action = {
             const value = init.elements.interest.value.slice(0, -1);
             tag.className = 'tag';
             tag.innerHTML = `<span>${value}</span><span class="tagRemove">x</span>`;
-            if (value) tags.insertBefore(tag, tinit.elements.ags.childNodes[init.elements.tags.childNodes.length-2]);
+            if (value) init.elements.tags.insertBefore(tag, init.elements.tags.childNodes[init.elements.tags.childNodes.length-2]);
             init.elements.interest.value = '';
             const remove = document.querySelectorAll('.tagRemove');
             [].forEach.call(remove, (x) => {
                 x.addEventListener("click", () => { x.parentNode.remove(); check.interest(); });
             });
+            check.interest();
         }
 
-        if (e.key == 'Backspace' && init.elements.tags.childElementCount > 1 && interest.value == '') {
+        if (e.key == 'Backspace' && init.elements.tags.childElementCount > 1 && init.elements.interest.value == '') {
             const tag = init.elements.tags.childNodes[init.elements.tags.childNodes.length-3];
             const value = tag.childNodes[0].textContent;
             init.elements.interest.value = value;
@@ -269,7 +265,8 @@ window.onlaod = action = {
 
     submitForm(e) {
         if (Object.values(init.validation).every((v) => v === true)) {
-            console.log('홰ㅣ원가입 완료!');
+            //TODO 회원가입완료
+            self.window.location = '././#';
         } else {
             const idx = Object.values(init.validation).indexOf(false);
             const required = ['아이디를', '비밀번호를', '동일한 비밀번호인지', '이름을', '태어난 년도를',
@@ -307,13 +304,13 @@ window.onlaod = action = {
                 const parentNode = el.parentNode;
                 const grandNode = el.parentNode.parentNode;
                 const tag = document.getElementsByClassName('tag');
-                while (tag.length) tags.removeChild(tag[0]);
+                while (tag.length) init.elements.tags.removeChild(tag[0]);
                 parentNode.remove();
                 grandNode.style.display = "none";
                 Object.keys(init.validation).forEach((e) => init.validation[e] = false);
                 const span = document.querySelectorAll('span');
                 [].forEach.call(span, (el) => {
-                    if (el.id != 'birthTxt') { console.log(el.id); el.innerText = ''; }
+                    if (el.id != 'birthTxt') el.innerText = '';
                 });
             });
         });
