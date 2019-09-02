@@ -7,13 +7,32 @@ const validation = {
     id : false,
     pw : false,
     pw2 : false,
+    name : false,
     year : false,
     day : false,
     gender : false,
     email : false,
     phone : false,
     interest : false,
-    agreement: false
+    agreement : false
+};
+
+const elements = {
+    id : '',
+    pw : '',
+    pw2 : '',
+    name : '',
+    year : '',
+    month : '',
+    day : '',
+    gender : '',
+    email : '',
+    phone : '',
+    interest : '',
+    tags : '',
+    agreeBtn : '',
+    resetBtn : '',
+    submitBtn : ''
 };
 
 const check = {
@@ -78,17 +97,31 @@ const check = {
         }
     },
 
+    name() {
+        if (elements.name.value) validation.name = true;
+        else validation.name = false;
+    },
+
     year() {
         const regex = /^[0-9]{4}$/;
         const text = document.getElementById('birthTxt');
-        const age = 2019 - year.value;
+        const nowYear = new Date().getFullYear();
+        const age = nowYear - year.value;
         if (!regex.test(year.value)) {
             validation.year = false;
             text.innerText = '태어난 년도 4자리를 정확하게 입력하세요.';
             text.style.color = color.x;
+        } else if (year.value > nowYear) {
+            validation.year = false;
+            text.innerText = '미래에서 오셨군요.';
+            text.style.color = color.x;
         } else if (age < 14) {
             validation.year = false;
-            text.innerText = '만 14세 이상만 가입 가능합니다';
+            text.innerText = '만 14세 이상만 가입 가능합니다.';
+            text.style.color = color.x;
+        } else if (age > 100) {
+            validation.year = false;
+            text.innerText = '정말이세요?';
             text.style.color = color.x;
         } else {
             validation.year = true;
@@ -100,6 +133,8 @@ const check = {
         const days = ['false', 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         const text = document.getElementById('birthTxt');
         const m = month.options[month.selectedIndex].value;
+        if (year.value % 400 == 0 || (year.value % 100 != 0 && year.value % 4 == 0)) days[2] = 29;
+
         if (!(0 < day.value && day.value <= days[m])) {
             validation.day = false;
             text.innerText = '태어난 날짜를 다시 확인해주세요.';
@@ -114,8 +149,6 @@ const check = {
         const text = document.getElementById('genderTxt');
         if(!gender.options[gender.selectedIndex].id) {
             validation.gender = false;
-            text.innerText = '성별을 선택하세요.';
-            text.style.color = color.x;
         } else {
             validation.gender = true;
             text.innerText = '';
@@ -146,45 +179,85 @@ const check = {
             validation.phone = true;
             text.innerText = '';
         }
-    }
-};
+    },
 
-const action = {
-    submit() {
-        if (Object.values(validation).every((b) => b === true)) {
-            //TODO 모든 값 확인
+    interest() {
+        const text = document.getElementById('interestTxt');
+        if (tags.childElementCount < 4) {
+            validation.interest = false;
+            text.innerText = '3개 이상의 관심사를 입력하세요.';
+            text.style.color = color.x;
         } else {
-            //TODO 유효성검사 확인되지 않은 값 존재
+            validation.interest = true;
+            text.innerText = '';
         }
     }
 };
 
-const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-months.forEach((m) => {
-    const option = document.createElement('option');
-    option.innerText = m;
-    document.getElementById('month').appendChild(option);
-});
+const action = {
+    addInterest(e) {
+        if (e.key == ',') {
+            const tag = document.createElement('div');
+            const value = interest.value.slice(0, -1);
+            tag.className = 'tag';
+            tag.innerHTML = `<span>${value}</span><span class="tagRemove">x</span>`;
+            if (value) tags.insertBefore(tag, tags.childNodes[tags.childNodes.length-2]);
+            interest.value = '';
+            const remove = document.querySelectorAll('.tagRemove');
+            [].forEach.call(remove, (x) => {
+                x.addEventListener("click", () => { x.parentNode.remove(); check.interest(); });
+            });
+        }
 
-const id = document.getElementById('id');
-const pw = document.getElementById('pw');
-const pw2 = document.getElementById('pw2');
-const year = document.getElementById('year');
-const month = document.getElementById('month');
-const day = document.getElementById('day');
-const gender = document.getElementById('gender');
-const email = document.getElementById('email');
-const phone = document.getElementById('phone');
-const submit = document.getElementById('submit');
+        if (e.key == 'Backspace' && tags.childElementCount > 1 && interest.value == '') {
+            const tag = tags.childNodes[tags.childNodes.length-3];
+            const value = tag.childNodes[0].textContent;
+            interest.value = value;
+            tag.remove();
+            check.interest();
+        }
+    }
+};
 
-id.addEventListener("blur", check.id);
-pw.addEventListener("blur", check.pw);
-pw.addEventListener("change", check.pwSame);
-pw2.addEventListener("blur", check.pwSame);
-year.addEventListener("blur", check.year);
-month.addEventListener("change", check.day);
-day.addEventListener("blur", check.day);
-gender.addEventListener("change", check.gender);
-email.addEventListener("blur", check.email);
-phone.addEventListener("blur", check.phone);
-submit.addEventListener("click", action.submit);
+const getElementById = () => {
+    Object.keys(elements).forEach((i) => elements[i] = document.getElementById(i));
+    addEventListener();
+    addMonth();
+};
+
+const addEventListener = () => {
+    const element = document.querySelectorAll('.element');
+    [].forEach.call(element, (el) => {
+        let parentNode = el.parentNode;
+        if (el.id === 'interest') parentNode = el.parentNode.parentNode;
+        el.addEventListener("focus", () => {parentNode.style.border = '1px solid #0aa603'});
+        el.addEventListener("blur", () => {parentNode.style.border = '1px solid #cac9c9'});
+        el.addEventListener("keydown", (e) => {if (e.key === 'Enter') e.preventDefault()});
+    });
+};
+
+const addMonth = () => {
+    const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+    months.forEach((m) => {
+        const option = document.createElement('option');
+        option.innerText = m;
+        month.appendChild(option);
+    });
+};
+
+getElementById();
+
+elements.id.addEventListener("blur", check.id);
+elements.pw.addEventListener("blur", check.pw);
+elements.pw.addEventListener("change", check.pwSame);
+elements.pw2.addEventListener("blur", check.pwSame);
+elements.name.addEventListener("blur", check.name);
+elements.year.addEventListener("blur", check.year);
+if (elements.day.value) { elements.year.addEventListener("blur", check.day); }
+elements.month.addEventListener("change", check.day);
+elements.day.addEventListener("blur", check.day);
+elements.gender.addEventListener("change", check.gender);
+elements.email.addEventListener("blur", check.email);
+elements.phone.addEventListener("blur", check.phone);
+elements.interest.addEventListener("keyup", check.interest);
+elements.interest.addEventListener("keyup", action.addInterest);
