@@ -232,8 +232,35 @@ const action = {
             document.getElementById('submitModal').appendChild(alert);
             document.getElementById('submitModal').style.display = "block";
             // elements[Object.keys(validation)[idx]].focus();
+            action.closeModal();
             e.preventDefault();
         }
+    },
+
+    resetBtn(e) {
+        e.preventDefault();
+        const confirm = document.createElement('div');
+        confirm.className = 'confirm';
+        confirm.innerHTML = `<p>모든 내용을 새로 작성하시겠습니까?</p>
+                             <div class="closeBtn cancelBtn">취소</div>
+                             <div class="resetBtn">확인</div>`;
+        document.getElementById('resetModal').appendChild(confirm);
+        document.getElementById('resetModal').style.display = "block";
+        action.resetForm();
+        action.closeModal();
+    },
+
+    closeModal() {
+        const closeBtn = document.querySelectorAll('.closeBtn');
+        [].forEach.call(closeBtn, (el) => {
+            el.addEventListener("click", () => {
+                const parentNode = el.parentNode;
+                const grandNode = el.parentNode.parentNode;
+                if (parentNode.className != 'agreement') parentNode.remove();
+                grandNode.style.display = "none";
+                el.className = '';
+            });
+        });
     }
 };
 
