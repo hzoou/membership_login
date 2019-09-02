@@ -246,7 +246,6 @@ const action = {
                              <div class="resetBtn">확인</div>`;
         document.getElementById('resetModal').appendChild(confirm);
         document.getElementById('resetModal').style.display = "block";
-        action.resetForm();
         action.closeModal();
     },
 
@@ -306,6 +305,5 @@ elements.email.addEventListener("blur", check.email);
 elements.phone.addEventListener("blur", check.phone);
 elements.interest.addEventListener("keyup", check.interest);
 elements.interest.addEventListener("keyup", action.addInterest);
-elements.agreeBtn.addEventListener("click", action.makeAgreeModal);
 elements.resetBtn.addEventListener("click", action.resetBtn);
 elements.submitBtn.addEventListener("click", action.submitForm);
