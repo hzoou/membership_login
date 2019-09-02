@@ -151,7 +151,6 @@ const check = {
             validation.gender = false;
         } else {
             validation.gender = true;
-            text.innerText = '';
         }
     },
 
@@ -281,9 +280,8 @@ const action = {
         const agreementModal = document.getElementById("agreementModal");
         const agreementContent = document.getElementsByClassName('agreementContent')[0];
         const agreementBtn = document.getElementsByClassName('agreementBtn')[0];
-        agreementContent.addEventListener("scroll", () => {
-            console.log(agreementContent.scrollTop)
-            if (agreementContent.scrollTop == 558) {
+        agreementContent.addEventListener("scroll", (e) => {
+            if (e.target.scrollHeight - e.target.scrollTop <= e.target.clientHeight) {
                 agreementBtn.style.border = '1px solid #0aa603';
                 agreementBtn.style.background = '#0aa603';
                 agreementBtn.style.cursor = 'pointer';
