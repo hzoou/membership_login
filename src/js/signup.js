@@ -216,6 +216,24 @@ const action = {
             tag.remove();
             check.interest();
         }
+    },
+
+    submitForm(e) {
+        if (Object.values(validation).every((v) => v === true)) {
+            console.log('홰ㅣ원가입 완료!');
+        } else {
+            const idx = Object.values(validation).indexOf(false);
+            const required = ['아이디를', '비밀번호를', '동일한 비밀번호인지', '이름을', '태어난 년도를',
+                                '태어난 날짜를', '성별을', '이메일을', '휴대전화를', '관심사를', '약관 동의 여부를'];
+            const alert = document.createElement('div');
+            alert.className = 'alert';
+            alert.innerHTML = `<div class="closeBtn">&times;</div>
+                               <div>${required[idx]} 확인해주세요!</div>`;
+            document.getElementById('submitModal').appendChild(alert);
+            document.getElementById('submitModal').style.display = "block";
+            // elements[Object.keys(validation)[idx]].focus();
+            e.preventDefault();
+        }
     }
 };
 
@@ -261,3 +279,6 @@ elements.email.addEventListener("blur", check.email);
 elements.phone.addEventListener("blur", check.phone);
 elements.interest.addEventListener("keyup", check.interest);
 elements.interest.addEventListener("keyup", action.addInterest);
+elements.agreeBtn.addEventListener("click", action.makeAgreeModal);
+elements.resetBtn.addEventListener("click", action.resetBtn);
+elements.submitBtn.addEventListener("click", action.submitForm);
