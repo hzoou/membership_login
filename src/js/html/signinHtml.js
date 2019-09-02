@@ -1,10 +1,7 @@
 <div class="form-signin">
     <div class="text-center mb-4">
         <img class="mb-4" src="././src/img/boostcamp.png" alt="" width="72" height="72" />
-            <h1 class="h3 mb-3 font-weight-normal">로그인</h1>
-            <p>Build form controls with floating labels via the <code>:placeholder-shown</code> pseudo-element.
-                <a href="https://caniuse.com/#feat=css-placeholder-shown">Works in latest Chrome, Safari, and Firefox.</a>
-            </p>
+        <h1 class="h3 mb-3 font-weight-normal">로그인</h1>
     </div>
 
     <div class="form-label-group">
@@ -19,5 +16,5 @@
 
     <div class="checkbox mb-3"></div>
     <button class="btn btn-lg btn-primary btn-block" id="submit">Sign in</button>
-    <p class="mt-5 mb-3 text-muted text-center">© 2017-2019</p>
+    <p class="mt-5 mb-3 text-muted text-center">©2019 Boostcamp Membership, hzoou</p>
 </div>
