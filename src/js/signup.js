@@ -246,7 +246,28 @@ const action = {
                              <div class="resetBtn">확인</div>`;
         document.getElementById('resetModal').appendChild(confirm);
         document.getElementById('resetModal').style.display = "block";
+        action.resetForm();
         action.closeModal();
+    },
+
+    resetForm() {
+        const resetBtn = document.querySelectorAll('.resetBtn');
+        [].forEach.call(resetBtn, (el) => {
+            el.addEventListener("click", () => {
+                document.getElementById("form").reset();
+                const parentNode = el.parentNode;
+                const grandNode = el.parentNode.parentNode;
+                const tag = document.getElementsByClassName('tag');
+                while (tag.length) tags.removeChild(tag[0]);
+                parentNode.remove();
+                grandNode.style.display = "none";
+                Object.keys(validation).forEach((e) => validation[e] = false);
+                const span = document.querySelectorAll('span');
+                [].forEach.call(span, (el) => {
+                    if (el.id != 'birthTxt') { console.log(el.id); el.innerText = ''; }
+                });
+            });
+        });
     },
 
     closeModal() {
