@@ -12,7 +12,7 @@ window.onlaod = init = {
         interest : false,
         agreement : false
     },
-    
+
     elements: {
         id : '',
         pw : '',
@@ -26,12 +26,14 @@ window.onlaod = init = {
         phone : '',
         interest : '',
         tags : '',
+        agreement: '',
         agreeBtn : '',
         resetBtn : '',
         submitBtn : ''
     },
 
     getElementById() {
+        document.title = '회원가입';
         Object.keys(init.elements).forEach((i) => init.elements[i] = document.getElementById(i));
         this.addAllEventListener();
         this.addEventListener();
@@ -64,9 +66,9 @@ window.onlaod = init = {
         init.elements.phone.addEventListener("blur", check.phone);
         init.elements.interest.addEventListener("keyup", check.interest);
         init.elements.interest.addEventListener("keyup", action.addInterest);
-        init.elements.agreeBtn.addEventListener("click", action.makeAgreeModal);
-        init.elements.resetBtn.addEventListener("click", action.resetBtn);
-        init.elements.submitBtn.addEventListener("click", action.submitForm);
+        init.elements.agreeBtn.addEventListener("click", action.displayAgreeModal);
+        init.elements.resetBtn.addEventListener("click", action.resetModal);
+        init.elements.submitBtn.addEventListener("click", action.submitModal);
     },
 
     addMonth() {
@@ -84,7 +86,7 @@ window.onlaod = check = {
         o : '#0aa603',
         x : '#ff0000'
     },
-    
+
     id() {
         const regex = /^[a-z0-9]{5,20}/g;
         const text = document.getElementById('idTxt');
@@ -97,6 +99,7 @@ window.onlaod = check = {
             text.innerText = '5~20자의 영문 소문자, 숫자와 특수기호(_)(-) 만 사용 가능합니다.';
             text.style.color = check.color.x;
         }
+        //TODO 아이디 중복체크
     },
 
     pw() {
@@ -263,11 +266,12 @@ window.onlaod = action = {
         }
     },
 
-    submitForm(e) {
+    submitModal(e) {
         if (Object.values(init.validation).every((v) => v === true)) {
             //TODO 회원가입완료
             self.window.location = '././#';
         } else {
+            document.body.style.overflow = 'hidden';
             const idx = Object.values(init.validation).indexOf(false);
             const required = ['아이디를', '비밀번호를', '동일한 비밀번호인지', '이름을', '태어난 년도를',
                 '태어난 날짜를', '성별을', '이메일을', '휴대전화를', '관심사를', '약관 동의 여부를'];
@@ -277,15 +281,15 @@ window.onlaod = action = {
                                <div>${required[idx]} 확인해주세요!</div>`;
             document.getElementById('submitModal').appendChild(alert);
             document.getElementById('submitModal').style.display = "block";
-            // elements[Object.keys(validation)[idx]].focus();
-            action.closeModal();
+            action.closeModal(idx);
             e.preventDefault();
         }
     },
 
-    resetBtn(e) {
+    resetModal(e) {
         e.preventDefault();
         const confirm = document.createElement('div');
+        document.body.style.overflow = 'hidden';
         confirm.className = 'confirm';
         confirm.innerHTML = `<p>모든 내용을 새로 작성하시겠습니까?</p>
                              <div class="closeBtn cancelBtn">취소</div>
@@ -306,6 +310,7 @@ window.onlaod = action = {
                 const tag = document.getElementsByClassName('tag');
                 while (tag.length) init.elements.tags.removeChild(tag[0]);
                 parentNode.remove();
+                document.body.style.overflow = 'auto';
                 grandNode.style.display = "none";
                 Object.keys(init.validation).forEach((e) => init.validation[e] = false);
                 const span = document.querySelectorAll('span');
@@ -316,7 +321,8 @@ window.onlaod = action = {
         });
     },
 
-    makeAgreeModal() {
+    displayAgreeModal() {
+        document.body.style.overflow = 'hidden';
         agreementModal.style.display = "block";
         document.getElementsByClassName('agreement')[0].firstElementChild.className = 'closeBtn';
         action.closeModal();
@@ -324,6 +330,7 @@ window.onlaod = action = {
     },
 
     admitAgreeModal() {
+        document.body.style.overflow = 'hidden';
         const agreementModal = document.getElementById("agreementModal");
         const agreementContent = document.getElementsByClassName('agreementContent')[0];
         const agreementBtn = document.getElementsByClassName('agreementBtn')[0];
@@ -339,18 +346,22 @@ window.onlaod = action = {
             init.validation.agreement = true;
             agreement.checked = true;
             agreementModal.style.display = "none";
+            document.body.style.overflow = 'auto';
         });
     },
 
-    closeModal() {
+    closeModal(idx) {
         const closeBtn = document.querySelectorAll('.closeBtn');
         [].forEach.call(closeBtn, (el) => {
             el.addEventListener("click", () => {
+                document.body.style.overflow = 'auto';
                 const parentNode = el.parentNode;
                 const grandNode = el.parentNode.parentNode;
                 if (parentNode.className != 'agreement') parentNode.remove();
                 grandNode.style.display = "none";
                 el.className = '';
+                const element = init.elements[Object.keys(init.validation)[idx]];
+                if (element) element.focus();
             });
         });
     }

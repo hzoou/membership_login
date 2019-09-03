@@ -1,0 +1,1 @@
+document.title = '메인페이지';
