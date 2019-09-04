@@ -1,9 +1,9 @@
 // Ref https://poiemaweb.com/js-spa
 
-import Main from "../src/views/Main.js";
-import SignIn from "../src/views/SignIn.js";
-import SignUp from "../src/views/SignUp.js";
-import Error from "../src/views/Error.js";
+import Main from "./src/views/Main.js";
+import SignIn from "./src/views/SignIn.js";
+import SignUp from "./src/views/SignUp.js";
+import Error from "./src/views/Error.js";
 
 const container = document.querySelector('.container');
 
@@ -14,7 +14,7 @@ function renderHtml(html, url) {
     if (url) {
         const script = document.createElement('script');
         script.type = 'module';
-        script.src = `../src/js/${url}.js`;
+        script.src = `src/js/${url}.js`;
         document.body.appendChild(script);
     }
     // document.body.innerHTML += `<script src="../src/js/${url}.js" />`;
