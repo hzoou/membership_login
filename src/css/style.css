@@ -1,17 +1,20 @@
 body {
     background-color: #f5f6f7;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
-nav > ul > li > a {
+header > ul > li > a {
     text-decoration: none;
     color: #6c6b6b;
 }
-nav > ul > li > a:hover {
+header > ul > li > a:hover {
     color: #000000;
     font-weight: bold;
 }
 
-nav ul {
+header ul {
     background: white;
     height: 3rem;
     margin: 0 auto;
@@ -21,7 +24,7 @@ nav ul {
     padding-right: 2rem;
 }
 
-nav ul li {
+header ul li {
     display: inline;
     border-left: 1px solid #999;
     font-size: 12px;
@@ -29,13 +32,23 @@ nav ul li {
     padding: 0px 0.8rem;
 }
 
-nav ul li:first-child {
+header ul li:first-child {
     border-left: none;
+}
+
+footer {
+    background: white;
+    height: 3rem;
+    text-align: center;
+    line-height: 3rem;
+    border-top: 1px solid #80808061;
+    font-size: 0.7rem;
+    color: #6c6b6b;
 }
 
 .container {
     width: 27rem;
-    margin: 1rem auto;
+    flex: 1;
 }
 
 #title {
@@ -75,7 +88,7 @@ div {
 
 select {
     height: 1rem;
-    background: #fff url(../img/arrow.png) no-repeat 95% 50%;
+    background: #fff url(https://i.imgur.com/bc4DE1r.png) no-repeat 95% 50%;
     background-size: 1rem;
     border: 0;
     -webkit-appearance: none;
@@ -98,10 +111,11 @@ input[type=checkbox] {
     height: auto;
 }
 
-#footer {
+#button {
     width: 100%;
     display: flex;
     box-sizing: border-box;
+    margin-bottom: 0.6rem;
 }
 
 .birth, .gender {

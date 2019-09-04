@@ -1,83 +1,108 @@
-(function () {
-    const init = {
-        validation: {
-            id: false,
-            pw: false,
-            pw2: false,
-            name: false,
-            year: false,
-            day: false,
-            gender: false,
-            email: false,
-            phone: false,
-            interest: false,
-            agreement: false
-        },
+import { $ } from './utils.js';
 
-        elements: {
-            id: '',
-            pw: '',
-            pw2: '',
-            name: '',
-            year: '',
-            month: '',
-            day: '',
-            gender: '',
-            email: '',
-            phone: '',
-            interest: '',
-            tags: '',
+(function() {
+    const constant = {
+        'ID_CORRECT' : '사용 가능한 아이디입니다.',
+        'ID_INCORRECT' : '5~20자의 영문 소문자, 숫자와 특수기호(_)(-) 만 사용 가능합니다.',
+        'PW_MIN_LENGTH' : 8,
+        'PW_MAX_LENGTH' : 16,
+        'PW_CORRECT' : '안전한 비밀번호입니다.',
+        'PW_INCORRECT_LEN' : '8자 이상 16자 이하로 입력해주세요.',
+        'PW_INCORRECT_UPPER' : '영문 대문자를 최소 1자 이상 포함해주세요.',
+        'PW_INCORRECT_LOWER' : '영문 소문자를 최소 1자 이상 포함해주세요.',
+        'PW_INCORRECT_NUM' : '숫자를 최소 1자 이상 포함해주세요.',
+        'PW_INCORRECT_SC' : '특수문자를 최소 1자 이상 포함해주세요.',
+        'PW_SAME' : '비밀번호가 일치합니다.',
+        'PW_DIFFERENT' : '비밀번호가 일치하지 않습니다.',
+        'AGE_MIN' : 14,
+        'AGE_MAX' : 100,
+        'YEAR_INCORRECT' : '태어난 년도 4자리를 정확하게 입력하세요.',
+        'YEAR_FUTURE' : '미래에서 오셨군요.',
+        'YEAR_PAST' : '정말이세요?',
+        'YEAR_UNDER_AGE' : '만 14세 이상만 가입 가능합니다.',
+        'DAY_INCORRECT' : '태어난 날짜를 다시 확인해주세요.',
+        'EMAIL_INCORRECT' : '이메일 주소를 다시 확인해주세요.',
+        'PHONE_INCORRECT' : '형식에 맞지 않는 번호입니다.',
+        'INTEREST_MIN_COUNT' : 4,
+        'INTEREST_INCORRECT' : '3개 이상의 관심사를 입력하세요.'
+    };
+    
+    const validation = {
+        id : false,
+            pw : false,
+            pw2 : false,
+            name : false,
+            year : false,
+            day : false,
+            gender : false,
+            email : false,
+            phone : false,
+            interest : false,
+            agreement : false
+    };
+
+    const elements = {
+            id : '',
+            pw : '',
+            pw2 : '',
+            name : '',
+            year : '',
+            month : '',
+            day : '',
+            gender : '',
+            email : '',
+            phone : '',
+            interest : '',
+            tags : '',
             agreement: '',
-            agreeBtn: '',
-            resetBtn: '',
-            submitBtn: ''
-        },
+            agreeBtn : '',
+            resetBtn : '',
+            submitBtn : ''
+    };
 
+    const color = {
+            o : '#0aa603',
+            x : '#ff0000'
+    };
+
+    const init = {
         getElementById() {
             document.title = '회원가입';
-            Object.keys(init.elements).forEach((i) => init.elements[i] = document.getElementById(i));
+            Object.keys(elements).forEach((i) => elements[i] = $(`#${i}`));
             this.addAllEventListener();
             this.addEventListener();
             this.addMonth();
         },
 
         addAllEventListener() {
-            const element = document.querySelectorAll('.element');
+            const element = $('.element');
             [].forEach.call(element, (el) => {
                 let parentNode = el.parentNode;
                 if (el.id === 'interest') parentNode = el.parentNode.parentNode;
-                el.addEventListener("focus", () => {
-                    parentNode.style.border = '1px solid #0aa603'
-                });
-                el.addEventListener("blur", () => {
-                    parentNode.style.border = '1px solid #cac9c9'
-                });
-                el.addEventListener("keydown", (e) => {
-                    if (e.key === 'Enter') e.preventDefault()
-                });
+                el.addEventListener("focus", () => {parentNode.style.border = '1px solid #0aa603'});
+                el.addEventListener("blur", () => {parentNode.style.border = '1px solid #cac9c9'});
+                el.addEventListener("keydown", (e) => {if (e.key === 'Enter') e.preventDefault()});
             });
         },
 
         addEventListener() {
-            init.elements.id.addEventListener("blur", check.id);
-            init.elements.pw.addEventListener("blur", check.pw);
-            init.elements.pw.addEventListener("change", check.pwSame);
-            init.elements.pw2.addEventListener("blur", check.pwSame);
-            init.elements.name.addEventListener("blur", check.name);
-            init.elements.year.addEventListener("blur", check.year);
-            if (init.elements.day.value) {
-                init.elements.year.addEventListener("blur", check.day);
-            }
-            init.elements.month.addEventListener("change", check.day);
-            init.elements.day.addEventListener("blur", check.day);
-            init.elements.gender.addEventListener("change", check.gender);
-            init.elements.email.addEventListener("blur", check.email);
-            init.elements.phone.addEventListener("blur", check.phone);
-            init.elements.interest.addEventListener("keyup", check.interest);
-            init.elements.interest.addEventListener("keyup", action.addInterest);
-            init.elements.agreeBtn.addEventListener("click", action.displayAgreeModal);
-            init.elements.resetBtn.addEventListener("click", action.resetModal);
-            init.elements.submitBtn.addEventListener("click", action.submitModal);
+            elements.id.addEventListener("blur", check.id);
+            elements.pw.addEventListener("blur", check.pw);
+            elements.pw.addEventListener("change", check.pwSame);
+            elements.pw2.addEventListener("blur", check.pwSame);
+            elements.name.addEventListener("blur", check.name);
+            elements.year.addEventListener("blur", check.year);
+            if (elements.day.value) { elements.year.addEventListener("blur", check.day); }
+            elements.month.addEventListener("change", check.day);
+            elements.day.addEventListener("blur", check.day);
+            elements.gender.addEventListener("change", check.gender);
+            elements.email.addEventListener("blur", check.email);
+            elements.phone.addEventListener("blur", check.phone);
+            elements.interest.addEventListener("keyup", check.interest);
+            elements.interest.addEventListener("keyup", action.addInterest);
+            elements.agreeBtn.addEventListener("click", action.displayAgreeModal);
+            elements.resetBtn.addEventListener("click", action.displayResetModal);
+            elements.submitBtn.addEventListener("click", action.displaySubmitModal);
         },
 
         addMonth() {
@@ -85,218 +110,211 @@
             months.forEach((m) => {
                 const option = document.createElement('option');
                 option.innerText = m;
-                init.elements.month.appendChild(option);
+                elements.month.appendChild(option);
             })
         }
     };
-    const check = {
-        color: {
-            o: '#0aa603',
-            x: '#ff0000'
-        },
 
+    const check = {
         id() {
-            const regex = /^[a-z0-9]{5,20}/g;
-            const text = document.getElementById('idTxt');
-            if (regex.test(init.elements.id.value)) {
-                init.validation.id = true;
-                text.innerText = '사용 가능한 아이디입니다.';
-                text.style.color = check.color.o;
+            const idRegex = /^[a-z0-9]{5,20}/g;
+            const text = $('#idTxt');
+            if (idRegex.test(elements.id.value)) {
+                validation.id = true;
+                text.innerText = constant.ID_CORRECT;
+                text.style.color = color.o;
             } else {
-                init.validation.id = false;
-                text.innerText = '5~20자의 영문 소문자, 숫자와 특수기호(_)(-) 만 사용 가능합니다.';
-                text.style.color = check.color.x;
+                validation.id = false;
+                text.innerText = constant.ID_INCORRECT;
+                text.style.color = color.x;
             }
             //TODO 아이디 중복체크
         },
 
         pw() {
-            const text = document.getElementById('pwTxt');
-            if (init.elements.pw.value.length < 8 || init.elements.pw.value.length > 16) {
-                init.validation.pw = false;
-                text.innerText = '8자 이상 16자 이하로 입력해주세요.';
-                text.style.color = check.color.x;
-            } else if (!new RegExp(/[A-Z]/).test(pw.value)) {
-                init.validation.pw = false;
-                text.innerText = '영문 대문자를 최소 1자 이상 포함해주세요.';
-                text.style.color = check.color.x;
-            } else if (!new RegExp(/[a-z]/).test(pw.value)) {
-                init.validation.pw = false;
-                text.innerText = '영문 문자를 최소 1자 이상 포함해주세요.';
-                text.style.color = check.color.x;
-            } else if (!new RegExp(/\d/).test(pw.value)) {
-                init.validation.pw = false;
-                text.innerText = '숫자를 최소 1자 이상 포함해주세요.';
-                text.style.color = check.color.x;
-            } else if (!new RegExp(/[#$^+=!*()@%&]/).test(pw.value)) {
-                init.validation.pw = false;
-                text.innerText = '특수문자를 최소 1자 이상 포함해주세요.';
-                text.style.color = check.color.x;
+            const text = $('#pwTxt');
+            if (elements.pw.value.length < constant.PW_MIN_LENGTH || elements.pw.value.length > constant.PW_MAX_LENGTH) {
+                validation.pw = false;
+                text.innerText = constant.PW_INCORRECT_LEN;
+                text.style.color = color.x;
+            } else if (!new RegExp(/[A-Z]/).test(elements.pw.value)) {
+                validation.pw = false;
+                text.innerText = constant.PW_INCORRECT_UPPER;
+                text.style.color = color.x;
+            } else if (!new RegExp(/[a-z]/).test(elements.pw.value)) {
+                validation.pw = false;
+                text.innerText = constant.PW_INCORRECT_LOWER;
+                text.style.color = color.x;
+            } else if (!new RegExp(/\d/).test(elements.pw.value)) {
+                validation.pw = false;
+                text.innerText = constant.PW_INCORRECT_NUM;
+                text.style.color = color.x;
+            } else if (!new RegExp(/[#$^+=!*()@%&]/).test(elements.pw.value)) {
+                validation.pw = false;
+                text.innerText = constant.PW_INCORRECT_SC;
+                text.style.color = color.x;
             } else {
-                init.validation.pw = true;
-                text.innerText = '안전한 비밀번호입니다.';
-                text.style.color = check.color.o;
+                validation.pw = true;
+                text.innerText = constant.PW_CORRECT;
+                text.style.color = color.o;
             }
         },
 
         pwSame() {
-            const text = document.getElementById('pw2Txt');
-            if (init.elements.pw.value === init.elements.pw2.value) {
-                init.validation.pw2 = true;
-                text.innerText = '비밀번호가 일치합니다.';
-                text.style.color = check.color.o;
+            const text = $('#pw2Txt');
+            if (elements.pw.value === elements.pw2.value) {
+                validation.pw2 = true;
+                text.innerText = constant.PW_SAME;
+                text.style.color = color.o;
             } else {
-                init.validation.pw2 = false;
-                text.innerText = '비밀번호가 일치하지 않습니다.';
-                text.style.color = check.color.x;
+                validation.pw2 = false;
+                text.innerText = constant.PW_DIFFERENT;
+                text.style.color = color.x;
             }
 
-            if (!init.elements.pw2.value) {
-                init.validation.pw2 = false;
+            if (!elements.pw2.value) {
+                validation.pw2 = false;
                 text.innerText = '';
             }
         },
 
         name() {
-            if (init.elements.name.value) init.validation.name = true;
-            else init.validation.name = false;
+            if (elements.name.value) validation.name = true;
+            else validation.name = false;
         },
 
         year() {
-            const regex = /^[0-9]{4}$/;
-            const text = document.getElementById('birthTxt');
+            const yearRegex = /^[0-9]{4}$/;
+            const text = $('#birthTxt');
             const nowYear = new Date().getFullYear();
-            const age = nowYear - init.elements.year.value;
-            if (!regex.test(init.elements.year.value)) {
-                init.validation.year = false;
-                text.innerText = '태어난 년도 4자리를 정확하게 입력하세요.';
-                text.style.color = check.color.x;
-            } else if (init.elements.year.value > nowYear) {
-                init.validation.year = false;
-                text.innerText = '미래에서 오셨군요.';
-                text.style.color = check.color.x;
-            } else if (age < 14) {
-                init.validation.year = false;
-                text.innerText = '만 14세 이상만 가입 가능합니다.';
-                text.style.color = check.color.x;
-            } else if (age > 100) {
-                init.validation.year = false;
-                text.innerText = '정말이세요?';
-                text.style.color = check.color.x;
+            const age = nowYear - elements.year.value;
+            if (!yearRegex.test(elements.year.value)) {
+                validation.year = false;
+                text.innerText = constant.YEAR_INCORRECT;
+                text.style.color = color.x;
+            } else if (elements.year.value > nowYear) {
+                validation.year = false;
+                text.innerText = constant.YEAR_FUTURE;
+                text.style.color = color.x;
+            } else if (age < constant.AGE_MIN) {
+                validation.year = false;
+                text.innerText = constant.YEAR_UNDER_AGE;
+                text.style.color = color.x;
+            } else if (age > constant.AGE_MAX) {
+                validation.year = false;
+                text.innerText = constant.YEAR_PAST;
+                text.style.color = color.x;
             } else {
-                init.validation.year = true;
+                validation.year = true;
                 text.innerText = '';
             }
         },
 
         day() {
             const days = ['false', 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-            const text = document.getElementById('birthTxt');
-            const m = init.elements.month.options[init.elements.month.selectedIndex].value;
-            if (init.elements.year.value % 400 == 0 || (init.elements.year.value % 100 != 0 && init.elements.year.value % 4 == 0)) days[2] = 29;
-
-            if (!(0 < init.elements.day.value && init.elements.day.value <= days[m])) {
-                init.validation.day = false;
-                text.innerText = '태어난 날짜를 다시 확인해주세요.';
-                text.style.color = check.color.x;
+            const text = $('#birthTxt');
+            const m = elements.month.options[elements.month.selectedIndex].value;
+            if (elements.year.value % 400 == 0 || (elements.year.value % 100 != 0 && elements.year.value % 4 == 0)) days[2] = 29;
+            if (!(0 < elements.day.value && elements.day.value <= days[m])) {
+                validation.day = false;
+                text.innerText = constant.DAY_INCORRECT;
+                text.style.color = color.x;
             } else {
-                init.validation.day = true;
+                validation.day = true;
                 text.innerText = '';
             }
         },
 
         gender() {
-            if (!init.elements.gender.options[init.elements.gender.selectedIndex].id) init.validation.gender = false;
-            else init.validation.gender = true;
+            if(!elements.gender.options[elements.gender.selectedIndex].id) validation.gender = false;
+            else validation.gender = true;
         },
 
         email() {
-            const regex = /^[0-9a-z\-_]*@[a-z]+(.[a-z]{2,3})+$/;
-            const text = document.getElementById('emailTxt');
-            if (!regex.test(init.elements.email.value)) {
-                init.validation.email = false;
-                text.innerText = '이메일 주소를 다시 확인해주세요.';
-                text.style.color = check.color.x;
+            const emailRegex = /^[0-9a-z\-_]*@[a-z]+(.[a-z]{2,3})+$/;
+            const text = $('#emailTxt');
+            if (!emailRegex.test(elements.email.value)) {
+                validation.email = false;
+                text.innerText = constant.EMAIL_INCORRECT;
+                text.style.color = color.x;
             } else {
-                init.validation.email = true;
+                validation.email = true;
                 text.innerText = '';
             }
         },
 
         phone() {
-            const regex = /^010[0-9]{7,8}$/;
-            const text = document.getElementById('phoneTxt');
-            if (!regex.test(init.elements.phone.value)) {
-                init.validation.phone = false;
-                text.innerText = '형식에 맞지 않는 번호입니다.';
-                text.style.color = check.color.x;
+            const phoneRegex = /^010[0-9]{7,8}$/;
+            const text = $('#phoneTxt');
+            if (!phoneRegex.test(elements.phone.value)) {
+                validation.phone = false;
+                text.innerText = constant.PHONE_INCORRECT;
+                text.style.color = color.x;
             } else {
-                init.validation.phone = true;
+                validation.phone = true;
                 text.innerText = '';
             }
         },
 
         interest() {
-            const text = document.getElementById('interestTxt');
-            if (init.elements.tags.childElementCount < 4) {
-                init.validation.interest = false;
-                text.innerText = '3개 이상의 관심사를 입력하세요.';
-                text.style.color = check.color.x;
+            const text = $('#interestTxt');
+            if (elements.tags.childElementCount < constant.INTEREST_MIN_COUNT) { //TODO 매직넘버
+                validation.interest = false;
+                text.innerText = constant.INTEREST_INCORRECT;
+                text.style.color = color.x;
             } else {
-                init.validation.interest = true;
+                validation.interest = true;
                 text.innerText = '';
             }
         }
     };
+
     const action = {
         addInterest(e) {
             if (e.key == ',') {
                 const tag = document.createElement('div');
-                const value = init.elements.interest.value.slice(0, -1);
+                const value = elements.interest.value.slice(0, -1);
                 tag.className = 'tag';
                 tag.innerHTML = `<span>${value}</span><span class="tagRemove">x</span>`;
-                if (value) init.elements.tags.insertBefore(tag, init.elements.tags.childNodes[init.elements.tags.childNodes.length - 2]);
-                init.elements.interest.value = '';
-                const remove = document.querySelectorAll('.tagRemove');
+                if (value) elements.tags.insertBefore(tag, elements.tags.childNodes[elements.tags.childNodes.length-2]);
+                elements.interest.value = '';
+                const remove = $('.tagRemove');
                 [].forEach.call(remove, (x) => {
-                    x.addEventListener("click", () => {
-                        x.parentNode.remove();
-                        check.interest();
-                    });
+                    x.addEventListener("click", () => { x.parentNode.remove(); check.interest(); });
                 });
                 check.interest();
             }
 
-            if (e.key == 'Backspace' && init.elements.tags.childElementCount > 1 && init.elements.interest.value == '') {
-                const tag = init.elements.tags.childNodes[init.elements.tags.childNodes.length - 3];
+            if (e.key == 'Backspace' && elements.tags.childElementCount > 1 && elements.interest.value == '') {
+                const tag = elements.tags.childNodes[elements.tags.childNodes.length-3];
                 const value = tag.childNodes[0].textContent;
-                init.elements.interest.value = value;
+                elements.interest.value = value;
                 tag.remove();
                 check.interest();
             }
         },
 
-        submitModal(e) {
-            if (Object.values(init.validation).every((v) => v === true)) {
+        displaySubmitModal(e) {
+            if (Object.values(validation).every((v) => v === true)) {
                 //TODO 회원가입완료
-                self.window.location = '././#';
+                self.window.location = './';
             } else {
                 document.body.style.overflow = 'hidden';
-                const idx = Object.values(init.validation).indexOf(false);
+                const idx = Object.values(validation).indexOf(false);
                 const required = ['아이디를', '비밀번호를', '동일한 비밀번호인지', '이름을', '태어난 년도를',
                     '태어난 날짜를', '성별을', '이메일을', '휴대전화를', '관심사를', '약관 동의 여부를'];
                 const alert = document.createElement('div');
                 alert.className = 'alert';
                 alert.innerHTML = `<div class="closeBtn">&times;</div>
                                <div>${required[idx]} 확인해주세요!</div>`;
-                document.getElementById('submitModal').appendChild(alert);
-                document.getElementById('submitModal').style.display = "block";
+                $('#submitModal').appendChild(alert);
+                $('#submitModal').style.display = "block";
                 action.closeModal(idx);
                 e.preventDefault();
             }
         },
 
-        resetModal(e) {
+        displayResetModal(e) {
             e.preventDefault();
             const confirm = document.createElement('div');
             document.body.style.overflow = 'hidden';
@@ -304,26 +322,26 @@
             confirm.innerHTML = `<p>모든 내용을 새로 작성하시겠습니까?</p>
                              <div class="closeBtn cancelBtn">취소</div>
                              <div class="resetBtn">확인</div>`;
-            document.getElementById('resetModal').appendChild(confirm);
-            document.getElementById('resetModal').style.display = "block";
-            action.resetForm();
+            $('#resetModal').appendChild(confirm);
+            $('#resetModal').style.display = "block";
+            action.clickResetBtn();
             action.closeModal();
         },
 
-        resetForm() {
-            const resetBtn = document.querySelectorAll('.resetBtn');
+        clickResetBtn() {
+            const resetBtn = $('.resetBtn');
             [].forEach.call(resetBtn, (el) => {
                 el.addEventListener("click", () => {
-                    document.getElementById("form").reset();
+                    $("#form").reset();
                     const parentNode = el.parentNode;
                     const grandNode = el.parentNode.parentNode;
-                    const tag = document.getElementsByClassName('tag');
-                    while (tag.length) init.elements.tags.removeChild(tag[0]);
+                    const tag = $('.tag');
+                    while (tag.length) elements.tags.removeChild(tag[0]);
                     parentNode.remove();
                     document.body.style.overflow = 'auto';
                     grandNode.style.display = "none";
-                    Object.keys(init.validation).forEach((e) => init.validation[e] = false);
-                    const span = document.querySelectorAll('span');
+                    Object.keys(validation).forEach((e) => validation[e] = false);
+                    const span = $('span');
                     [].forEach.call(span, (el) => {
                         if (el.id != 'birthTxt') el.innerText = '';
                     });
@@ -332,18 +350,14 @@
         },
 
         displayAgreeModal() {
+            const agreementModal = $("#agreementModal");
+            const agreementContent = $('.agreementContent')[0];
+            const agreementBtn = $('.agreementBtn')[0];
             document.body.style.overflow = 'hidden';
             agreementModal.style.display = "block";
-            document.getElementsByClassName('agreement')[0].firstElementChild.className = 'closeBtn';
+            $('.agreement')[0].firstElementChild.className = 'closeBtn';
             action.closeModal();
-            action.admitAgreeModal();
-        },
-
-        admitAgreeModal() {
-            document.body.style.overflow = 'hidden';
-            const agreementModal = document.getElementById("agreementModal");
-            const agreementContent = document.getElementsByClassName('agreementContent')[0];
-            const agreementBtn = document.getElementsByClassName('agreementBtn')[0];
+            //TODO 콜백함수 분리
             agreementContent.addEventListener("scroll", (e) => {
                 if (e.target.scrollHeight - e.target.scrollTop <= e.target.clientHeight) {
                     agreementBtn.style.border = '1px solid #0aa603';
@@ -353,15 +367,15 @@
                 }
             });
             agreementBtn.addEventListener("click", () => {
-                init.validation.agreement = true;
-                agreement.checked = true;
+                validation.agreement = true;
+                elements.agreement.checked = true;
                 agreementModal.style.display = "none";
                 document.body.style.overflow = 'auto';
             });
         },
 
         closeModal(idx) {
-            const closeBtn = document.querySelectorAll('.closeBtn');
+            const closeBtn = $('.closeBtn');
             [].forEach.call(closeBtn, (el) => {
                 el.addEventListener("click", () => {
                     document.body.style.overflow = 'auto';
@@ -370,7 +384,7 @@
                     if (parentNode.className != 'agreement') parentNode.remove();
                     grandNode.style.display = "none";
                     el.className = '';
-                    const element = init.elements[Object.keys(init.validation)[idx]];
+                    const element = elements[Object.keys(validation)[idx]];
                     if (element) element.focus();
                 });
             });
