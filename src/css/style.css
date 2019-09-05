@@ -94,7 +94,7 @@ select {
     -webkit-appearance: none;
 }
 
-input[type=button], input[type=submit] {
+.button {
     width: 100%;
     background-color: #0aa603;
     border: 1px solid #0aa603;

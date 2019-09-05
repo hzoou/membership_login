@@ -38,7 +38,7 @@ class SignUp {
                         </div>
                         <div style="width: 25px"></div>
                         <div class="inputText">
-                            <input type="text" placeholder="일" name="day" id="day" class="element" />
+                            <input type="text" placeholder="일" name="day" id="day" maxlength="2" class="element" />
                         </div>
                     </div>
                     <span id="birthTxt"></span>
@@ -73,9 +73,9 @@ class SignUp {
                         <input type="checkbox" disabled="disabled" id="agreement"/>
                     </div>
                     <div id="button">
-                        <input type="button" value="초기화" id="resetBtn"/>
+                        <input type="button" class="button" value="초기화" id="resetBtn"/>
                         <div style="width: 25px"></div>
-                        <input type="submit" value="가입하기" id="submitBtn"/>
+                        <input type="submit" class="button" value="가입하기" id="submitBtn"/>
                     </div>
                 </div>
                 
@@ -116,7 +116,7 @@ class SignUp {
                             보존 이유 : 통신비밀보호법<br>
                             보존 기간 : 3개월<br>
                         </div>
-                        <button class="agreementBtn" disabled="true">동의</button>
+                        <input type="button" class="agreementBtn" disabled="true" value="동의" />
                     </div>
                 </div>  
                 <div id="resetModal" class="modal"></div>
