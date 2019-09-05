@@ -28,17 +28,50 @@ import { $ } from './utils.js';
     };
     
     const validation = {
-        id : false,
-            pw : false,
-            pw2 : false,
-            name : false,
-            year : false,
-            day : false,
-            gender : false,
-            email : false,
-            phone : false,
-            interest : false,
-            agreement : false
+        'id' : {
+            confirm: false,
+            msg: '아이디를 확인해주세요.'
+        },
+        'pw' : {
+            confirm: false,
+            msg: '비밀번호를 확인해주세요.'
+        },
+        'pw2' : {
+            confirm: false,
+            msg: '동일한 비밀번호인지 확인해주세요.'
+        },
+        'name' : {
+            confirm: false,
+            msg: '이름을 확인해주세요.'
+        },
+        'year' : {
+            confirm: false,
+            msg: '태어난 년도를 확인해주세요.'
+        },
+        'day' : {
+            confirm: false,
+            msg: '태어난 날짜를 확인해주세요.'
+        },
+        'gender' : {
+            confirm: false,
+            msg: '성별을 확인해주세요.'
+        },
+        'email' : {
+            confirm: false,
+            msg: '이메일을 확앤해주세요.'
+        },
+        'phone' : {
+            confirm: false,
+            msg: '휴대전화를 확인해주세요.'
+        },
+        'interest' : {
+            confirm: false,
+            msg: '관심사를 확인해주세요.'
+        },
+        'agreement' : {
+            confirm: false,
+            msg: '약관 동의 여부를 확인해주세요.'
+        }
     };
 
     const elements = {
@@ -120,11 +153,11 @@ import { $ } from './utils.js';
             const idRegex = /^[a-z0-9]{5,20}/g;
             const text = $('#idTxt');
             if (idRegex.test(elements.id.value)) {
-                validation.id = true;
+                validation['id'].confirm = true;
                 text.innerText = constant.ID_CORRECT;
                 text.style.color = color.o;
             } else {
-                validation.id = false;
+                validation['id'].confirm = false;
                 text.innerText = constant.ID_INCORRECT;
                 text.style.color = color.x;
             }
@@ -134,27 +167,27 @@ import { $ } from './utils.js';
         pw() {
             const text = $('#pwTxt');
             if (elements.pw.value.length < constant.PW_MIN_LENGTH || elements.pw.value.length > constant.PW_MAX_LENGTH) {
-                validation.pw = false;
+                validation['pw'].confirm = false;
                 text.innerText = constant.PW_INCORRECT_LEN;
                 text.style.color = color.x;
             } else if (!new RegExp(/[A-Z]/).test(elements.pw.value)) {
-                validation.pw = false;
+                validation['pw'].confirm = false;
                 text.innerText = constant.PW_INCORRECT_UPPER;
                 text.style.color = color.x;
             } else if (!new RegExp(/[a-z]/).test(elements.pw.value)) {
-                validation.pw = false;
+                validation['pw'].confirm = false;
                 text.innerText = constant.PW_INCORRECT_LOWER;
                 text.style.color = color.x;
             } else if (!new RegExp(/\d/).test(elements.pw.value)) {
-                validation.pw = false;
+                validation['pw'].confirm = false;
                 text.innerText = constant.PW_INCORRECT_NUM;
                 text.style.color = color.x;
             } else if (!new RegExp(/[#$^+=!*()@%&]/).test(elements.pw.value)) {
-                validation.pw = false;
+                validation['pw'].confirm = false;
                 text.innerText = constant.PW_INCORRECT_SC;
                 text.style.color = color.x;
             } else {
-                validation.pw = true;
+                validation['pw'].confirm = true;
                 text.innerText = constant.PW_CORRECT;
                 text.style.color = color.o;
             }
@@ -163,24 +196,24 @@ import { $ } from './utils.js';
         pwSame() {
             const text = $('#pw2Txt');
             if (elements.pw.value === elements.pw2.value) {
-                validation.pw2 = true;
+                validation['pw2'].confirm = true;
                 text.innerText = constant.PW_SAME;
                 text.style.color = color.o;
             } else {
-                validation.pw2 = false;
+                validation['pw2'].confirm = false;
                 text.innerText = constant.PW_DIFFERENT;
                 text.style.color = color.x;
             }
 
             if (!elements.pw2.value) {
-                validation.pw2 = false;
+                validation['pw2'].confirm = false;
                 text.innerText = '';
             }
         },
 
         name() {
-            if (elements.name.value) validation.name = true;
-            else validation.name = false;
+            if (elements.name.value) validation['name'].confirm = true;
+            else validation['name'].confirm = false;
         },
 
         year() {
@@ -189,23 +222,23 @@ import { $ } from './utils.js';
             const nowYear = new Date().getFullYear();
             const age = nowYear - elements.year.value;
             if (!yearRegex.test(elements.year.value)) {
-                validation.year = false;
+                validation['year'].confirm = false;
                 text.innerText = constant.YEAR_INCORRECT;
                 text.style.color = color.x;
             } else if (elements.year.value > nowYear) {
-                validation.year = false;
+                validation['year'].confirm = false;
                 text.innerText = constant.YEAR_FUTURE;
                 text.style.color = color.x;
             } else if (age < constant.AGE_MIN) {
-                validation.year = false;
+                validation['year'].confirm = false;
                 text.innerText = constant.YEAR_UNDER_AGE;
                 text.style.color = color.x;
             } else if (age > constant.AGE_MAX) {
-                validation.year = false;
+                validation['year'].confirm = false;
                 text.innerText = constant.YEAR_PAST;
                 text.style.color = color.x;
             } else {
-                validation.year = true;
+                validation['year'].confirm = true;
                 text.innerText = '';
             }
         },
@@ -216,29 +249,29 @@ import { $ } from './utils.js';
             const m = elements.month.options[elements.month.selectedIndex].value;
             if (elements.year.value % 400 == 0 || (elements.year.value % 100 != 0 && elements.year.value % 4 == 0)) days[2] = 29;
             if (!(0 < elements.day.value && elements.day.value <= days[m])) {
-                validation.day = false;
+                validation['day'].confirm = false;
                 text.innerText = constant.DAY_INCORRECT;
                 text.style.color = color.x;
             } else {
-                validation.day = true;
+                validation['day'].confirm = true;
                 text.innerText = '';
             }
         },
 
         gender() {
-            if(!elements.gender.options[elements.gender.selectedIndex].id) validation.gender = false;
-            else validation.gender = true;
+            if(!elements.gender.options[elements.gender.selectedIndex].id) validation['gender'].confirm = false;
+            else validation['gender'].confirm = true;
         },
 
         email() {
             const emailRegex = /^[0-9a-z\-_]*@[a-z]+(.[a-z]{2,3})+$/;
             const text = $('#emailTxt');
             if (!emailRegex.test(elements.email.value)) {
-                validation.email = false;
+                validation['email'].confirm = false;
                 text.innerText = constant.EMAIL_INCORRECT;
                 text.style.color = color.x;
             } else {
-                validation.email = true;
+                validation['email'].confirm = true;
                 text.innerText = '';
             }
         },
@@ -247,11 +280,11 @@ import { $ } from './utils.js';
             const phoneRegex = /^010[0-9]{7,8}$/;
             const text = $('#phoneTxt');
             if (!phoneRegex.test(elements.phone.value)) {
-                validation.phone = false;
+                validation['phone'].confirm = false;
                 text.innerText = constant.PHONE_INCORRECT;
                 text.style.color = color.x;
             } else {
-                validation.phone = true;
+                validation['phone'].confirm = true;
                 text.innerText = '';
             }
         },
@@ -259,11 +292,11 @@ import { $ } from './utils.js';
         interest() {
             const text = $('#interestTxt');
             if (elements.tags.childElementCount < constant.INTEREST_MIN_COUNT) { //TODO 매직넘버
-                validation.interest = false;
+                validation['interest'].confirm = false;
                 text.innerText = constant.INTEREST_INCORRECT;
                 text.style.color = color.x;
             } else {
-                validation.interest = true;
+                validation['interest'].confirm = true;
                 text.innerText = '';
             }
         }
@@ -300,16 +333,14 @@ import { $ } from './utils.js';
                 self.window.location = './';
             } else {
                 document.body.style.overflow = 'hidden';
-                const idx = Object.values(validation).indexOf(false);
-                const required = ['아이디를', '비밀번호를', '동일한 비밀번호인지', '이름을', '태어난 년도를',
-                    '태어난 날짜를', '성별을', '이메일을', '휴대전화를', '관심사를', '약관 동의 여부를'];
+                const invalidatedValue = Object.values((validation)).find((e) => !e.confirm);
                 const alert = document.createElement('div');
                 alert.className = 'alert';
                 alert.innerHTML = `<div class="closeBtn">&times;</div>
-                               <div>${required[idx]} 확인해주세요!</div>`;
+                                   <div>${invalidatedValue.msg}</div>`;
                 $('#submitModal').appendChild(alert);
                 $('#submitModal').style.display = "block";
-                action.closeModal(idx);
+                action.closeModal();
                 e.preventDefault();
             }
         },
@@ -367,7 +398,7 @@ import { $ } from './utils.js';
                 }
             });
             agreementBtn.addEventListener("click", () => {
-                validation.agreement = true;
+                validation['agreement'].confirm = true;
                 elements.agreement.checked = true;
                 agreementModal.style.display = "none";
                 document.body.style.overflow = 'auto';
@@ -384,7 +415,7 @@ import { $ } from './utils.js';
                     if (parentNode.className != 'agreement') parentNode.remove();
                     grandNode.style.display = "none";
                     el.className = '';
-                    const element = elements[Object.keys(validation)[idx]];
+                    const element = elements[idx];
                     if (element) element.focus();
                 });
             });
@@ -393,4 +424,3 @@ import { $ } from './utils.js';
 
     init.getElementById();
 })();
-
