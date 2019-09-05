@@ -328,9 +328,15 @@ import { $ } from './utils.js';
         },
 
         displaySubmitModal(e) {
-            if (Object.values(validation).every((v) => v === true)) {
-                //TODO 회원가입완료
-                self.window.location = './';
+            if (Object.values(validation).some((v) => v.confirm === true)) {
+                const birth = $('#birth');
+                birth.value = `${elements.year.value}/${elements.month.value}/${elements.day.value}`;
+                const interestTags = $('#interestTags');
+                $('.tag').forEach((t) => interestTags.value += `${t.textContent.slice(0,-1)},`);
+                interestTags.value = interestTags.value.slice(0,-1);
+                const form = $('#form');
+                form.method = 'POST';
+                form.action = '/signup';
             } else {
                 document.body.style.overflow = 'hidden';
                 const invalidatedValue = Object.values(validation).find((e) => !e.confirm);

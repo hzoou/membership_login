@@ -27,18 +27,19 @@ class SignUp {
                     </div>
                     <div>생년월일</div>
                     <div class="birth">
+                        <input type="hidden" name="birth" id="birth">
                         <div class="inputText">
-                            <input type="text" placeholder="년(4자)" id="year" name="year" maxlength="4" class="element" />
+                            <input type="text" placeholder="년(4자)" id="year" maxlength="4" class="element" />
                         </div>
                         <div style="width: 25px"></div>
                         <div class="inputText">
-                            <select class="birth select element" name="month" id="month" >
+                            <select class="birth select element" id="month" >
                                 <option hidden>월</option>
                             </select>
                         </div>
                         <div style="width: 25px"></div>
                         <div class="inputText">
-                            <input type="text" placeholder="일" name="day" id="day" maxlength="2" class="element" />
+                            <input type="text" placeholder="일" id="day" maxlength="2" class="element" />
                         </div>
                     </div>
                     <span id="birthTxt"></span>
@@ -62,7 +63,7 @@ class SignUp {
                     <span id="phoneTxt"></span>
                     <div>관심사</div>
                     <div class="inputText" style="height: auto">
-                        <input type="hidden" name="interest" />
+                        <input type="hidden" name="interest" id="interestTags" />
                         <div id="tags">
                             <input type="text" id="interest" class="element" />
                         </div>
