@@ -18,7 +18,7 @@ class SignUp {
                     <span id="pwTxt"></span>
                     <div>비밀번호 재확인</div>
                     <div class="inputText">
-                        <input type="password" id="pw2" name="pw2" class="element" />
+                        <input type="password" id="pw2" class="element" />
                     </div>
                     <span id="pw2Txt"></span>
                     <div>이름</div>
