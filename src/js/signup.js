@@ -26,7 +26,7 @@ import { $ } from './utils.js';
         'INTEREST_MIN_COUNT' : 4,
         'INTEREST_INCORRECT' : '3개 이상의 관심사를 입력하세요.'
     };
-    
+
     const validation = {
         'id' : {
             confirm: false,
@@ -75,27 +75,27 @@ import { $ } from './utils.js';
     };
 
     const elements = {
-            id : '',
-            pw : '',
-            pw2 : '',
-            name : '',
-            year : '',
-            month : '',
-            day : '',
-            gender : '',
-            email : '',
-            phone : '',
-            interest : '',
-            tags : '',
-            agreement: '',
-            agreeBtn : '',
-            resetBtn : '',
-            submitBtn : ''
+        id : '',
+        pw : '',
+        pw2 : '',
+        name : '',
+        year : '',
+        month : '',
+        day : '',
+        gender : '',
+        email : '',
+        phone : '',
+        interest : '',
+        tags : '',
+        agreement: '',
+        agreeBtn : '',
+        resetBtn : '',
+        submitBtn : ''
     };
 
     const color = {
-            o : '#0aa603',
-            x : '#ff0000'
+        o : '#0aa603',
+        x : '#ff0000'
     };
 
     const init = {
@@ -333,14 +333,15 @@ import { $ } from './utils.js';
                 self.window.location = './';
             } else {
                 document.body.style.overflow = 'hidden';
-                const invalidatedValue = Object.values((validation)).find((e) => !e.confirm);
+                const invalidatedValue = Object.values(validation).find((e) => !e.confirm);
+                const invalidatedKey = Object.keys(validation).find((key) => validation[key] == invalidatedValue);
                 const alert = document.createElement('div');
                 alert.className = 'alert';
                 alert.innerHTML = `<div class="closeBtn">&times;</div>
                                    <div>${invalidatedValue.msg}</div>`;
                 $('#submitModal').appendChild(alert);
                 $('#submitModal').style.display = "block";
-                action.closeModal();
+                action.closeModal(invalidatedKey);
                 e.preventDefault();
             }
         },
@@ -405,7 +406,7 @@ import { $ } from './utils.js';
             });
         },
 
-        closeModal(idx) {
+        closeModal(key) {
             const closeBtn = $('.closeBtn');
             [].forEach.call(closeBtn, (el) => {
                 el.addEventListener("click", () => {
@@ -415,7 +416,7 @@ import { $ } from './utils.js';
                     if (parentNode.className != 'agreement') parentNode.remove();
                     grandNode.style.display = "none";
                     el.className = '';
-                    const element = elements[idx];
+                    const element = elements[key];
                     if (element) element.focus();
                 });
             });
