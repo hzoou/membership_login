@@ -148,7 +148,7 @@ import { $, fetchAPI } from "./utils.js";
 
     const check = {
         async id() {
-            const idRegex = /^[a-z0-9]{5,20}$/g;
+            const idRegex = /^[a-z0-9_-]{5,20}$/g;
             const text = $('#idTxt');
             const duplication = await fetchAPI(`/signup/${elements.id.value}`, "GET");
             check.duplicateId(duplication, text);
