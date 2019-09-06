@@ -17,12 +17,12 @@ function renderHtml(html, url) {
         script.src = `src/js/${url}.js`;
         document.body.appendChild(script);
     }
-    // document.body.innerHTML += `<script src="../src/js/${url}.js" />`;
 }
 
 const routes = {
     '': () => {
-        renderHtml(new Main(), 'main')
+        if (getCookie('sessionId')) self.location.href = './main';
+        else renderHtml(new Main(), 'main')
     },
     'signin': () => {
         renderHtml(new SignIn(), 'signin')
@@ -38,6 +38,12 @@ const routes = {
 function router() {
     const hash = location.hash.replace('#', '');
     (routes[hash] || routes.otherwise)();
+}
+
+function getCookie(name) {
+    const value = "; " + document.cookie;
+    const parts = value.split("; " + name + "=");
+    if (parts.length == 2) return parts.pop().split(";").shift();
 }
 
 window.addEventListener('hashchange', router);
