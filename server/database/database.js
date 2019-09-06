@@ -34,7 +34,7 @@ const haveId = (id) => { return (!!userDB[id]) };
 const isCorrectPw = (id, pw) => { return userDB[id].pw === pw };
 
 const createSession = (sessionId, userId) => {
-  sessionDB[sessionId] = userId;
+    sessionDB[sessionId] = userId;
 };
 
 const getUserBySession = (sessionId) => {
@@ -43,4 +43,8 @@ const getUserBySession = (sessionId) => {
     else return false;
 };
 
-module.exports = { insertUser, haveId, isCorrectPw, createSession, getUserBySession } ;
+const deleteSession = (sessionId) => {
+    delete sessionDB[sessionId];
+};
+
+module.exports = { insertUser, haveId, isCorrectPw, createSession, getUserBySession, deleteSession } ;
