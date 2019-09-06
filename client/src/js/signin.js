@@ -25,7 +25,7 @@ import { $, fetchAPI } from "./utils.js";
             };
             const res = await fetchAPI('/signin', 'POST', body);
             if (res.status == "FAIL") alert(res.msg);
-            else self.location.href = "././";
+            else self.location.href = `././main`;
         } else {
             const msg = (Object.values(validation).find((e) => !e.confirm)).msg;
             alert(msg);
