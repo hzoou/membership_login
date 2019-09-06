@@ -25,4 +25,9 @@ const insertUser = (id, info) => {
     return DB[id];
 };
 
-module.exports = { DB, insertUser } ;
+const isDuplicateId = (id) => {
+    if (DB[id]) return true;
+    else return false;
+};
+
+module.exports = { insertUser, isDuplicateId } ;
