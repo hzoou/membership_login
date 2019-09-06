@@ -37,4 +37,10 @@ const createSession = (sessionId, userId) => {
   sessionDB[sessionId] = userId;
 };
 
-module.exports = { insertUser, haveId, isCorrectPw, createSession } ;
+const getUserBySession = (sessionId) => {
+    const userId = sessionDB[sessionId];
+    if (userId) return userDB[userId];
+    else return false;
+};
+
+module.exports = { insertUser, haveId, isCorrectPw, createSession, getUserBySession } ;
