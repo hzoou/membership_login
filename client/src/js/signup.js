@@ -1,8 +1,7 @@
-import { $, fetchAPI } from "./utils";
+import { $, fetchAPI } from "./utils.js";
 
 (function() {
     const constant = {
-        'ID_CORRECT' : '사용 가능한 아이디입니다.',
         'ID_INCORRECT' : '5~20자의 영문 소문자, 숫자와 특수기호(_)(-) 만 사용 가능합니다.',
         'PW_MIN_LENGTH' : 8,
         'PW_MAX_LENGTH' : 16,
@@ -148,16 +147,26 @@ import { $, fetchAPI } from "./utils";
     };
 
     const check = {
-        id() {
-            const idRegex = /^[a-z0-9]{5,20}/g;
+        async id() {
+            const idRegex = /^[a-z0-9]{5,20}$/g;
             const text = $('#idTxt');
-            if (idRegex.test(elements.id.value)) {
+            const duplication = await fetchAPI(`/signup/${elements.id.value}`, "GET");
+            check.duplicateId(duplication, text);
+            if (!idRegex.test(elements.id.value)) {
+                validation['id'].confirm = false;
+                text.innerText = constant.ID_INCORRECT;
+                text.style.color = color.x;
+            }
+        },
+
+        duplicateId(res, text) {
+            if (res.status === "SUCCESS") {
                 validation['id'].confirm = true;
-                text.innerText = constant.ID_CORRECT;
+                text.innerText = res.msg;
                 text.style.color = color.o;
             } else {
                 validation['id'].confirm = false;
-                text.innerText = constant.ID_INCORRECT;
+                text.innerText = res.msg;
                 text.style.color = color.x;
             }
         },
