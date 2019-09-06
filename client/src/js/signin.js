@@ -1,6 +1,7 @@
 import { $, fetchAPI } from "./utils.js";
 
 (function () {
+    document.title = '로그인';
     const id = $('#id');
     const pw = $('#pw');
     const submitBtn = $('#submit');
@@ -24,26 +25,16 @@ import { $, fetchAPI } from "./utils.js";
             };
             const res = await fetchAPI('/signin', 'POST', body);
             if (res.status == "FAIL") alert(res.msg);
-            else console.log(res.msg);
+            else self.location.href = "././";
         } else {
             const msg = (Object.values(validation).find((e) => !e.confirm)).msg;
             alert(msg);
         }
     };
 
-    const check = {
-        id() {
-            if (id.value) validation['id'].confirm = true;
-            else validation['id'].confirm = false;
-        },
+    const check = (el) => { validation[el.id].confirm = (!!el.value) };
 
-        pw() {
-            if (pw.value) validation['pw'].confirm = true;
-            else validation['pw'].confirm = false;
-        }
-    };
-
-    id.addEventListener("blur", check.id);
-    pw.addEventListener("blur", check.pw);
+    id.addEventListener("blur", check.bind(null, id));
+    pw.addEventListener("blur", check.bind(null, pw));
     submitBtn.addEventListener("click", signIn);
 })();
