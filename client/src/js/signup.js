@@ -1,5 +1,4 @@
-import { $ } from './utils.js';
-import axios from 'axios';
+import { $, fetchAPI } from "./utils";
 
 (function() {
     const constant = {
@@ -115,7 +114,6 @@ import axios from 'axios';
                 if (el.id === 'interest') parentNode = el.parentNode.parentNode;
                 el.addEventListener("focus", () => {parentNode.style.border = '1px solid #0aa603'});
                 el.addEventListener("blur", () => {parentNode.style.border = '1px solid #cac9c9'});
-                el.addEventListener("keydown", (e) => {if (e.key === 'Enter') e.preventDefault()});
             });
         },
 
@@ -162,7 +160,6 @@ import axios from 'axios';
                 text.innerText = constant.ID_INCORRECT;
                 text.style.color = color.x;
             }
-            //TODO 아이디 중복체크
         },
 
         pw() {
@@ -328,17 +325,22 @@ import axios from 'axios';
             }
         },
 
-        displaySubmitModal(e) {
-            //TODO some => every
-            if (Object.values(validation).some((v) => v.confirm === true)) {
-                const birth = $('#birth');
-                birth.value = `${elements.year.value}/${elements.month.value}/${elements.day.value}`;
+        async displaySubmitModal() {
+            if (Object.values(validation).every((v) => v.confirm === true)) {
                 const interestTags = $('#interestTags');
                 $('.tag').forEach((t) => interestTags.value += `${t.textContent.slice(0,-1)},`);
-                interestTags.value = interestTags.value.slice(0,-1);
-                const form = $('#form');
-                form.method = 'POST';
-                form.action = '/signup';
+                const body = {
+                    id: elements.id.value,
+                    pw: elements.pw.value,
+                    name: elements.name.value,
+                    birth: `${elements.year.value}/${elements.month.value}/${elements.day.value}`,
+                    gender: elements.gender.value,
+                    email: elements.email.value,
+                    phone: elements.phone.value,
+                    interest: interestTags.value.slice(0, -1)
+                };
+                const signup = await fetchAPI('/signup', 'POST', body);
+                console.log(signup.msg);
             } else {
                 document.body.style.overflow = 'hidden';
                 const invalidatedValue = Object.values(validation).find((e) => !e.confirm);
@@ -350,12 +352,10 @@ import axios from 'axios';
                 $('#submitModal').appendChild(alert);
                 $('#submitModal').style.display = "block";
                 action.closeModal(invalidatedKey);
-                e.preventDefault();
             }
         },
 
-        displayResetModal(e) {
-            e.preventDefault();
+        displayResetModal() {
             const confirm = document.createElement('div');
             document.body.style.overflow = 'hidden';
             confirm.className = 'confirm';

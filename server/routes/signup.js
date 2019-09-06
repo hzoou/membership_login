@@ -2,10 +2,9 @@ const express = require('express');
 const router = express.Router();
 const { insertUser } = require("../database/database.js");
 
-router.post('/', function signup(req, res) {
-    const body = JSON.parse(JSON.stringify(req.body));
-    const data = insertUser(body.id, body);
-    res.status(200).send({ status : "200", data : data });
+router.post('/', (req, res) => {
+    const data = insertUser(req.body.id, req.body);
+    res.status(200).send({ status : "SUCCESS", data : data, msg : "회원가입 완료" });
 });
 
 module.exports = router;
