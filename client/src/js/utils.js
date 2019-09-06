@@ -8,7 +8,7 @@ const $ = (selectors) => {
 const fetchAPI = (uri, method, body) => {
     return fetch(URL + uri, {
         method: method,
-        headers: { 'Content-Type': 'application/json' },
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(body)
     }).then((res) => {
         if (res.ok) return res.json();
@@ -20,4 +20,4 @@ const fetchAPI = (uri, method, body) => {
     });
 };
 
-export { $, fetchAPI };
+export {$, fetchAPI};

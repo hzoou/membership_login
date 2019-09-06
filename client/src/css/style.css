@@ -9,6 +9,7 @@ header > ul > li > a {
     text-decoration: none;
     color: #6c6b6b;
 }
+
 header > ul > li > a:hover {
     color: #000000;
     font-weight: bold;

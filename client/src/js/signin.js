@@ -1,4 +1,4 @@
-import { $, fetchAPI } from "./utils.js";
+import {$, fetchAPI} from "./utils.js";
 
 (function () {
     document.title = '로그인';
@@ -7,11 +7,11 @@ import { $, fetchAPI } from "./utils.js";
     const submitBtn = $('#submit');
 
     const validation = {
-        'id' : {
+        'id': {
             confirm: false,
             msg: '아이디를 입력해주세요.'
         },
-        'pw' : {
+        'pw': {
             confirm: false,
             msg: '비밀번호를 입력해주세요.'
         }
@@ -32,7 +32,9 @@ import { $, fetchAPI } from "./utils.js";
         }
     };
 
-    const check = (el) => { validation[el.id].confirm = (!!el.value) };
+    const check = (el) => {
+        validation[el.id].confirm = (!!el.value)
+    };
 
     id.addEventListener("blur", check.bind(null, id));
     pw.addEventListener("blur", check.bind(null, pw));

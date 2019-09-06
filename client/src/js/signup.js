@@ -1,100 +1,100 @@
-import { $, fetchAPI } from "./utils.js";
+import {$, fetchAPI} from "./utils.js";
 
-(function() {
+(function () {
     const constant = {
-        'ID_INCORRECT' : '5~20자의 영문 소문자, 숫자와 특수기호(_)(-) 만 사용 가능합니다.',
-        'PW_MIN_LENGTH' : 8,
-        'PW_MAX_LENGTH' : 16,
-        'PW_CORRECT' : '안전한 비밀번호입니다.',
-        'PW_INCORRECT_LEN' : '8자 이상 16자 이하로 입력해주세요.',
-        'PW_INCORRECT_UPPER' : '영문 대문자를 최소 1자 이상 포함해주세요.',
-        'PW_INCORRECT_LOWER' : '영문 소문자를 최소 1자 이상 포함해주세요.',
-        'PW_INCORRECT_NUM' : '숫자를 최소 1자 이상 포함해주세요.',
-        'PW_INCORRECT_SC' : '특수문자를 최소 1자 이상 포함해주세요.',
-        'PW_SAME' : '비밀번호가 일치합니다.',
-        'PW_DIFFERENT' : '비밀번호가 일치하지 않습니다.',
-        'AGE_MIN' : 14,
-        'AGE_MAX' : 100,
-        'YEAR_INCORRECT' : '태어난 년도 4자리를 정확하게 입력하세요.',
-        'YEAR_FUTURE' : '미래에서 오셨군요.',
-        'YEAR_PAST' : '정말이세요?',
-        'YEAR_UNDER_AGE' : '만 14세 이상만 가입 가능합니다.',
-        'DAY_INCORRECT' : '태어난 날짜를 다시 확인해주세요.',
-        'EMAIL_INCORRECT' : '이메일 주소를 다시 확인해주세요.',
-        'PHONE_INCORRECT' : '형식에 맞지 않는 번호입니다.',
-        'INTEREST_MIN_COUNT' : 4,
-        'INTEREST_INCORRECT' : '3개 이상의 관심사를 입력하세요.'
+        'ID_INCORRECT': '5~20자의 영문 소문자, 숫자와 특수기호(_)(-) 만 사용 가능합니다.',
+        'PW_MIN_LENGTH': 8,
+        'PW_MAX_LENGTH': 16,
+        'PW_CORRECT': '안전한 비밀번호입니다.',
+        'PW_INCORRECT_LEN': '8자 이상 16자 이하로 입력해주세요.',
+        'PW_INCORRECT_UPPER': '영문 대문자를 최소 1자 이상 포함해주세요.',
+        'PW_INCORRECT_LOWER': '영문 소문자를 최소 1자 이상 포함해주세요.',
+        'PW_INCORRECT_NUM': '숫자를 최소 1자 이상 포함해주세요.',
+        'PW_INCORRECT_SC': '특수문자를 최소 1자 이상 포함해주세요.',
+        'PW_SAME': '비밀번호가 일치합니다.',
+        'PW_DIFFERENT': '비밀번호가 일치하지 않습니다.',
+        'AGE_MIN': 14,
+        'AGE_MAX': 100,
+        'YEAR_INCORRECT': '태어난 년도 4자리를 정확하게 입력하세요.',
+        'YEAR_FUTURE': '미래에서 오셨군요.',
+        'YEAR_PAST': '정말이세요?',
+        'YEAR_UNDER_AGE': '만 14세 이상만 가입 가능합니다.',
+        'DAY_INCORRECT': '태어난 날짜를 다시 확인해주세요.',
+        'EMAIL_INCORRECT': '이메일 주소를 다시 확인해주세요.',
+        'PHONE_INCORRECT': '형식에 맞지 않는 번호입니다.',
+        'INTEREST_MIN_COUNT': 4,
+        'INTEREST_INCORRECT': '3개 이상의 관심사를 입력하세요.'
     };
 
     const validation = {
-        'id' : {
+        'id': {
             confirm: false,
             msg: '아이디를 확인해주세요.'
         },
-        'pw' : {
+        'pw': {
             confirm: false,
             msg: '비밀번호를 확인해주세요.'
         },
-        'pw2' : {
+        'pw2': {
             confirm: false,
             msg: '동일한 비밀번호인지 확인해주세요.'
         },
-        'name' : {
+        'name': {
             confirm: false,
             msg: '이름을 확인해주세요.'
         },
-        'year' : {
+        'year': {
             confirm: false,
             msg: '태어난 년도를 확인해주세요.'
         },
-        'day' : {
+        'day': {
             confirm: false,
             msg: '태어난 날짜를 확인해주세요.'
         },
-        'gender' : {
+        'gender': {
             confirm: false,
             msg: '성별을 확인해주세요.'
         },
-        'email' : {
+        'email': {
             confirm: false,
             msg: '이메일을 확앤해주세요.'
         },
-        'phone' : {
+        'phone': {
             confirm: false,
             msg: '휴대전화를 확인해주세요.'
         },
-        'interest' : {
+        'interest': {
             confirm: false,
             msg: '관심사를 확인해주세요.'
         },
-        'agreement' : {
+        'agreement': {
             confirm: false,
             msg: '약관 동의 여부를 확인해주세요.'
         }
     };
 
     const elements = {
-        id : '',
-        pw : '',
-        pw2 : '',
-        name : '',
-        year : '',
-        month : '',
-        day : '',
-        gender : '',
-        email : '',
-        phone : '',
-        interest : '',
-        tags : '',
+        id: '',
+        pw: '',
+        pw2: '',
+        name: '',
+        year: '',
+        month: '',
+        day: '',
+        gender: '',
+        email: '',
+        phone: '',
+        interest: '',
+        tags: '',
         agreement: '',
-        agreeBtn : '',
-        resetBtn : '',
-        submitBtn : ''
+        agreeBtn: '',
+        resetBtn: '',
+        submitBtn: ''
     };
 
     const color = {
-        o : '#0aa603',
-        x : '#ff0000'
+        o: '#0aa603',
+        x: '#ff0000'
     };
 
     const init = {
@@ -111,8 +111,12 @@ import { $, fetchAPI } from "./utils.js";
             [].forEach.call(element, (el) => {
                 let parentNode = el.parentNode;
                 if (el.id === 'interest') parentNode = el.parentNode.parentNode;
-                el.addEventListener("focus", () => {parentNode.style.border = '1px solid #0aa603'});
-                el.addEventListener("blur", () => {parentNode.style.border = '1px solid #cac9c9'});
+                el.addEventListener("focus", () => {
+                    parentNode.style.border = '1px solid #0aa603'
+                });
+                el.addEventListener("blur", () => {
+                    parentNode.style.border = '1px solid #cac9c9'
+                });
             });
         },
 
@@ -123,7 +127,9 @@ import { $, fetchAPI } from "./utils.js";
             elements.pw2.addEventListener("blur", check.pwSame);
             elements.name.addEventListener("blur", check.name);
             elements.year.addEventListener("blur", check.year);
-            if (elements.day.value) { elements.year.addEventListener("blur", check.day); }
+            if (elements.day.value) {
+                elements.year.addEventListener("blur", check.day);
+            }
             elements.month.addEventListener("change", check.day);
             elements.day.addEventListener("blur", check.day);
             elements.gender.addEventListener("change", check.gender);
@@ -266,7 +272,7 @@ import { $, fetchAPI } from "./utils.js";
         },
 
         gender() {
-            if(!elements.gender.options[elements.gender.selectedIndex].id) validation['gender'].confirm = false;
+            if (!elements.gender.options[elements.gender.selectedIndex].id) validation['gender'].confirm = false;
             else validation['gender'].confirm = true;
         },
 
@@ -316,17 +322,20 @@ import { $, fetchAPI } from "./utils.js";
                 const value = elements.interest.value.slice(0, -1);
                 tag.className = 'tag';
                 tag.innerHTML = `<span>${value}</span><span class="tagRemove">x</span>`;
-                if (value) elements.tags.insertBefore(tag, elements.tags.childNodes[elements.tags.childNodes.length-2]);
+                if (value) elements.tags.insertBefore(tag, elements.tags.childNodes[elements.tags.childNodes.length - 2]);
                 elements.interest.value = '';
                 const remove = $('.tagRemove');
                 [].forEach.call(remove, (x) => {
-                    x.addEventListener("click", () => { x.parentNode.remove(); check.interest(); });
+                    x.addEventListener("click", () => {
+                        x.parentNode.remove();
+                        check.interest();
+                    });
                 });
                 check.interest();
             }
 
             if (e.key == 'Backspace' && elements.tags.childElementCount > 1 && elements.interest.value == '') {
-                const tag = elements.tags.childNodes[elements.tags.childNodes.length-3];
+                const tag = elements.tags.childNodes[elements.tags.childNodes.length - 3];
                 const value = tag.childNodes[0].textContent;
                 elements.interest.value = value;
                 tag.remove();
@@ -337,7 +346,7 @@ import { $, fetchAPI } from "./utils.js";
         async displaySubmitModal() {
             if (Object.values(validation).every((v) => v.confirm === true)) {
                 const interestTags = $('#interestTags');
-                $('.tag').forEach((t) => interestTags.value += `${t.textContent.slice(0,-1)},`);
+                $('.tag').forEach((t) => interestTags.value += `${t.textContent.slice(0, -1)},`);
                 const body = {
                     id: elements.id.value,
                     pw: elements.pw.value,
