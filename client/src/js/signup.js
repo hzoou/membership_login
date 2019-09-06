@@ -1,4 +1,5 @@
 import { $ } from './utils.js';
+import axios from 'axios';
 
 (function() {
     const constant = {
@@ -328,6 +329,7 @@ import { $ } from './utils.js';
         },
 
         displaySubmitModal(e) {
+            //TODO some => every
             if (Object.values(validation).some((v) => v.confirm === true)) {
                 const birth = $('#birth');
                 birth.value = `${elements.year.value}/${elements.month.value}/${elements.day.value}`;

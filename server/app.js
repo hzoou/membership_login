@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 const dirPath = __dirname;
-app.use(express.static(path.join(dirPath.replace("/server", "/"))));
+app.use(express.static(path.join(dirPath.replace("/server", "/client"))));
 
 app.use('/signup', signup);
 
