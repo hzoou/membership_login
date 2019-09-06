@@ -348,8 +348,8 @@ import { $, fetchAPI } from "./utils.js";
                     phone: elements.phone.value,
                     interest: interestTags.value.slice(0, -1)
                 };
-                const signup = await fetchAPI('/signup', 'POST', body);
-                console.log(signup.msg);
+                await fetchAPI('/signup', 'POST', body);
+                self.location.href = `././main`;
             } else {
                 document.body.style.overflow = 'hidden';
                 const invalidatedValue = Object.values(validation).find((e) => !e.confirm);

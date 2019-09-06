@@ -1,10 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { insertUser, haveId } = require("../database/database.js");
+const { insertUser, haveId, createSession } = require("../database/database.js");
+const uuid4 = require('uuid4');
 
 router.post('/', (req, res) => {
     const data = insertUser(req.body.id, req.body);
-    res.status(200).send({ status : "SUCCESS", data : data, msg : "회원가입 완료" });
+    const sessionId = uuid4();
+    createSession(sessionId, req.body.id);
+    res.cookie('sessionId', sessionId, { maxAge: 60 * 30 * 1000 }).status(200).send({ status : "SUCCESS", data : data, msg : "회원가입 완료" });
 });
 
 router.get('/:id', (req, res) => {
