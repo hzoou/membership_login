@@ -1,5 +1,6 @@
-const DB = {
+const userDB = {
     admin: {
+        id: 'admin',
         pw: 'admin',
         name: '관리자',
         birth: '1996/9/17',
@@ -10,6 +11,7 @@ const DB = {
     },
 
     hzoou: {
+        id: 'hzoou',
         pw: '12345',
         name: '혜주',
         birth: '1996/9/17',
@@ -21,12 +23,12 @@ const DB = {
 };
 
 const insertUser = (id, info) => {
-    DB[id] = info;
-    return DB[id];
+    userDB[id] = info;
+    return userDB[id];
 };
 
-const haveId = (id) => { return (!!DB[id]) };
+const haveId = (id) => { return (!!userDB[id]) };
 
-const isCorrectPw = (id, pw) => { return DB[id].pw === pw };
+const isCorrectPw = (id, pw) => { return userDB[id].pw === pw };
 
 module.exports = { insertUser, haveId, isCorrectPw } ;
