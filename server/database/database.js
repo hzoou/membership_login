@@ -27,4 +27,6 @@ const insertUser = (id, info) => {
 
 const haveId = (id) => { return (!!DB[id]) };
 
-module.exports = { insertUser, haveId } ;
+const isCorrectPw = (id, pw) => { return DB[id].pw === pw };
+
+module.exports = { insertUser, haveId, isCorrectPw } ;
