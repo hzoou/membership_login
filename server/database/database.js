@@ -25,9 +25,6 @@ const insertUser = (id, info) => {
     return DB[id];
 };
 
-const haveId = (id) => {
-    if (DB[id]) return true;
-    else return false;
-};
+const haveId = (id) => { return (!!DB[id]) };
 
 module.exports = { insertUser, haveId } ;
