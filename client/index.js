@@ -21,16 +21,13 @@ function renderHtml(html, url) {
 
 const routes = {
     '': () => {
-        if (getCookie('sessionId')) self.location.href = './main';
-        else renderHtml(new Main(), 'main')
+        renderHtml(new Main(), 'main')
     },
     'signin': () => {
-        if (getCookie('sessionId')) self.location.href = './main';
-        else renderHtml(new SignIn(), 'signin');
+        renderHtml(new SignIn(), 'signin');
     },
     'signup': () => {
-        if (getCookie('sessionId')) self.location.href = './main';
-        else renderHtml(new SignUp(), 'signup')
+        renderHtml(new SignUp(), 'signup')
     },
     otherwise() {
         renderHtml(new Error(location.hash.replace('#', '')))
