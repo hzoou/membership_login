@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const signup = require('./routes/signup');
 const signin = require('./routes/signin');
-const main = require('./routes/main');
+const mypage = require('./routes/mypage');
 const logout = require('./routes/logout');
 const app = express();
 
@@ -21,7 +21,7 @@ const dirPath = __dirname;
 app.use(express.static(path.join(dirPath.replace("/server", "/client"))));
 
 app.use('/logout', logout);
-app.use('/main', main);
+app.use('/mypage', mypage);
 app.use('/signup', signup);
 app.use('/signin', signin);
 

@@ -5,7 +5,7 @@ const {getUserBySession} = require("../database/database");
 router.get('/', (req, res) => {
     const sessionId = req.cookies.sessionId;
     const userData = getUserBySession(sessionId);
-    if (userData) res.render('main', {userId: userData.id});
+    if (userData) res.render('mypage', {userId: userData.id});
 });
 
 module.exports = router;

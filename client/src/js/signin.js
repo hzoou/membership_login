@@ -27,7 +27,7 @@ import {$, fetchAPI} from "./utils.js";
             if (res.status == "FAIL") {
                 makeModal(res.msg);
             }
-            else self.location.href = `././main`;
+            else self.location.href = `././mypage`;
         } else {
             const element = (Object.values(validation).find((e) => !e.confirm));
             makeModal(element.msg);

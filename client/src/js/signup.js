@@ -358,7 +358,7 @@ import {$, fetchAPI} from "./utils.js";
                     interest: interestTags.value.slice(0, -1)
                 };
                 await fetchAPI('/signup', 'POST', body);
-                self.location.href = `././main`;
+                self.location.href = `././mypage`;
             } else {
                 document.body.style.overflow = 'hidden';
                 const invalidatedValue = Object.values(validation).find((e) => !e.confirm);
