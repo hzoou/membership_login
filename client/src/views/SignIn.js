@@ -4,26 +4,23 @@ class SignIn {
     }
 
     render() {
-        return `<div class="form-signin">
-                    <div class="text-center mb-4">
-                        <img class="mb-4" src="https://i.imgur.com/a3vIGU7.png" alt="" width="72" height="72" />
-                        <h1 class="h3 mb-3 font-weight-normal">로그인</h1>
+        return `<div>
+                    <div id="title">로그인</div>
+                    <div>아이디</div>
+                    <div class="inputText">
+                        <input type="text" id="id" name="id" class="element" />
                     </div>
-                
-                    <div class="form-label-group">
-                        <input type="text" id="id" class="form-control" placeholder="User Id" required="" autoFocus="" />
-                        <label htmlFor="inputEmail">User Id</label>
+                    <span id="idTxt"></span>
+                    <div>비밀번호</div>
+                    <div class="inputText">
+                        <input type="password" id="pw" name="pw" class="element" />
                     </div>
-                
-                    <div class="form-label-group">
-                        <input type="password" id="pw" class="form-control" placeholder="Password" required="" />
-                        <label htmlFor="inputPassword">Password</label>
+                    
+                    <div id="button">
+                        <input type="button" class="button" value="로그인" id="submit"/>
                     </div>
-                
-                    <div class="checkbox mb-3"></div>
-                    <button class="btn btn-lg btn-primary btn-block" id="submit">Sign in</button>
-                    <p class="mt-5 mb-3 text-muted text-center">©2019 Boostcamp Membership, hzoou</p>
-                </div>`;
+                </div>
+                <div id="submitModal" class="modal"></div>`;
     }
 }
 
