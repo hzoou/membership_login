@@ -156,12 +156,14 @@ import {$, fetchAPI} from "./utils.js";
         async id() {
             const idRegex = /^[a-z0-9_-]{5,20}$/g;
             const text = $('#idTxt');
-            const duplication = await fetchAPI(`/signup/${elements.id.value}`, "GET");
-            check.duplicateId(duplication, text);
-            if (!idRegex.test(elements.id.value)) {
-                validation['id'].confirm = false;
-                text.innerText = constant.ID_INCORRECT;
-                text.style.color = color.x;
+            if (elements.id.value) {
+                const duplication = await fetchAPI(`/signup/${elements.id.value}`, "GET");
+                check.duplicateId(duplication, text);
+                if (!idRegex.test(elements.id.value)) {
+                    validation['id'].confirm = false;
+                    text.innerText = constant.ID_INCORRECT;
+                    text.style.color = color.x;
+                }
             }
         },
 
