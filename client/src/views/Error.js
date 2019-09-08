@@ -10,6 +10,10 @@ class Error {
                     </div>
                 </div>`;
     }
+
+    getScript() {
+        document.title = '에러페이지';
+    }
 }
 
 export default Error;

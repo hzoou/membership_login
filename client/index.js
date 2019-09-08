@@ -7,16 +7,9 @@ import Error from "./src/views/Error.js";
 
 const container = document.querySelector('.container');
 
-function renderHtml(html, url) {
-    container.innerHTML = html.render();
-    const scripts = document.querySelectorAll('script');
-    [].forEach.call(scripts, (e) => e.remove());
-    if (url) {
-        const script = document.createElement('script');
-        script.type = 'module';
-        script.src = `src/js/${url}.js`;
-        document.body.appendChild(script);
-    }
+function renderHtml(page, url) {
+    container.innerHTML = page.render();
+    page.getScript();
 }
 
 const routes = {

@@ -1,3 +1,5 @@
+import {init} from "../js/main.js";
+
 class Main {
     constructor() {
 
@@ -24,6 +26,10 @@ class Main {
                         <input type="button" class="button" value="회원가입" onclick="location.href='#signup'">
                     </div>
                 </div>`;
+    }
+
+    getScript() {
+        init();
     }
 }
 

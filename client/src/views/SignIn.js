@@ -1,3 +1,5 @@
+import {init} from "../js/signin.js";
+
 class SignIn {
     constructor() {
 
@@ -21,6 +23,10 @@ class SignIn {
                     </div>
                 </div>
                 <div id="submitModal" class="modal"></div>`;
+    }
+
+    getScript() {
+        init.getElementById();
     }
 }
 

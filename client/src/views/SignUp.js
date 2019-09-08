@@ -1,3 +1,5 @@
+import {init} from "../js/signup.js";
+
 class SignUp {
     constructor() {
 
@@ -65,7 +67,7 @@ class SignUp {
                     <div class="inputText" style="height: auto">
                         <input type="hidden" name="interest" id="interestTags" />
                         <div id="tags">
-                            <input type="text" id="interest" class="element" />
+                            <input type="text" id="interest" class="element" placeholder="" />
                         </div>
                     </div>
                     <span id="interestTxt"></span>
@@ -122,6 +124,10 @@ class SignUp {
                 </div>  
                 <div id="resetModal" class="modal"></div>
                 <div id="submitModal" class="modal"></div>`;
+    }
+
+    getScript() {
+        init.getElementById();
     }
 }
 
