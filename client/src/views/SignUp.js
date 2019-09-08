@@ -67,7 +67,7 @@ class SignUp {
                     <div class="inputText" style="height: auto">
                         <input type="hidden" name="interest" id="interestTags" />
                         <div id="tags">
-                            <input type="text" id="interest" class="element" placeholder="" />
+                            <input type="text" id="interest" class="element" />
                         </div>
                     </div>
                     <span id="interestTxt"></span>
