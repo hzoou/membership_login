@@ -194,6 +194,7 @@ input[type=checkbox] {
     margin: auto;
     padding: 2rem 2.5rem;
     border: 1px solid #888;
+    border-radius: 10px;
     width: 32rem;
     height: 16.7rem;
     box-sizing: content-box;
@@ -229,11 +230,13 @@ input[type=checkbox] {
     overflow: auto;
     background: white;
     border: 1px solid #b1b1b1;
+    border-radius: 10px;
 }
 
 .agreementBtn {
     display: block;
     border: 1px solid #cac9c9;
+    border-radius: 10px;
     background: #cac9c9;
     color: white;
     width: 6rem;
@@ -247,6 +250,7 @@ input[type=checkbox] {
     margin: 12rem auto;
     padding: 1.2rem 2rem;
     border: 1px solid #888;
+    border-radius: 10px;
     width: 25rem;
     height: 5rem;
 }
