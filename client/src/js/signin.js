@@ -44,12 +44,12 @@ const init = {
             };
             const res = await fetchAPI('/signin', 'POST', body);
             if (res.status == "FAIL") {
-                this.makeModal(res.msg);
+                init.makeModal(res.msg);
             }
             else self.location.href = `././mypage`;
         } else {
             const element = (Object.values(validation).find((e) => !e.confirm));
-            this.makeModal(element.msg);
+            init.makeModal(element.msg);
         }
     },
 
@@ -60,7 +60,7 @@ const init = {
                            <div>${msg}</div>`;
         $('#submitModal').appendChild(alert);
         $('#submitModal').style.display = "block";
-        this.closeModal();
+        init.closeModal();
     },
 
     closeModal() {
