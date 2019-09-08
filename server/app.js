@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const signup = require('./routes/signup');
 const signin = require('./routes/signin');
@@ -8,7 +7,6 @@ const mypage = require('./routes/mypage');
 const logout = require('./routes/logout');
 const app = express();
 
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 

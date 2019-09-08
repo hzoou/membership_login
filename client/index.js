@@ -14,13 +14,16 @@ function renderHtml(page, url) {
 
 const routes = {
     '': () => {
-        renderHtml(new Main(), 'main')
+        if (getCookie('sessionId')) self.location.href = './mypage';
+        else renderHtml(new Main(), 'main');
     },
     'signin': () => {
-        renderHtml(new SignIn(), 'signin');
+        if (getCookie('sessionId')) self.location.href = './mypage';
+        else renderHtml(new SignIn(), 'signin');
     },
     'signup': () => {
-        renderHtml(new SignUp(), 'signup')
+        if (getCookie('sessionId')) self.location.href = './mypage';
+        else renderHtml(new SignUp(), 'signup');
     },
     otherwise() {
         renderHtml(new Error(location.hash.replace('#', '')))
