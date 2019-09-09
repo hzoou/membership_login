@@ -9,7 +9,7 @@ const constant = {
     'PW_INCORRECT_UPPER': '영문 대문자를 최소 1자 이상 포함해주세요.',
     'PW_INCORRECT_LOWER': '영문 소문자를 최소 1자 이상 포함해주세요.',
     'PW_INCORRECT_NUM': '숫자를 최소 1자 이상 포함해주세요.',
-    'PW_INCORRECT_SC': '특수문자를 최소 1자 이상 포함해주세요.',
+    'PW_INCORRECT_SYMBOL': '특수문자를 최소 1자 이상 포함해주세요.',
     'PW_SAME': '비밀번호가 일치합니다.',
     'PW_DIFFERENT': '비밀번호가 일치하지 않습니다.',
     'AGE_MIN': 14,
@@ -126,9 +126,7 @@ const init = {
         elements.pw2.addEventListener("blur", check.pwSame);
         elements.name.addEventListener("blur", check.name);
         elements.year.addEventListener("blur", check.year);
-        if (elements.day.value) {
-            elements.year.addEventListener("blur", check.day);
-        }
+        if (elements.day.value) elements.year.addEventListener("blur", check.day);
         elements.month.addEventListener("change", check.day);
         elements.day.addEventListener("blur", check.day);
         elements.gender.addEventListener("change", check.gender);
@@ -180,25 +178,30 @@ const check = {
 
     pw() {
         const text = $('#pwTxt');
+        const regexUpper = /[A-Z]/;
+        const regexLower = /[a-z]/;
+        const regexNum = /\d/;
+        const regexSymbol = /[#$^+=!*()@%&]/;
+
         if (elements.pw.value.length < constant.PW_MIN_LENGTH || elements.pw.value.length > constant.PW_MAX_LENGTH) {
             validation['pw'].confirm = false;
             text.innerText = constant.PW_INCORRECT_LEN;
             text.style.color = color.x;
-        } else if (!new RegExp(/[A-Z]/).test(elements.pw.value)) {
+        } else if (!new RegExp(regexUpper).test(elements.pw.value)) {
             validation['pw'].confirm = false;
             text.innerText = constant.PW_INCORRECT_UPPER;
             text.style.color = color.x;
-        } else if (!new RegExp(/[a-z]/).test(elements.pw.value)) {
+        } else if (!new RegExp(regexLower).test(elements.pw.value)) {
             validation['pw'].confirm = false;
             text.innerText = constant.PW_INCORRECT_LOWER;
             text.style.color = color.x;
-        } else if (!new RegExp(/\d/).test(elements.pw.value)) {
+        } else if (!new RegExp(regexNum).test(elements.pw.value)) {
             validation['pw'].confirm = false;
             text.innerText = constant.PW_INCORRECT_NUM;
             text.style.color = color.x;
-        } else if (!new RegExp(/[#$^+=!*()@%&]/).test(elements.pw.value)) {
+        } else if (!new RegExp(regexSymbol).test(elements.pw.value)) {
             validation['pw'].confirm = false;
-            text.innerText = constant.PW_INCORRECT_SC;
+            text.innerText = constant.PW_INCORRECT_SYMBOL;
             text.style.color = color.x;
         } else {
             validation['pw'].confirm = true;
@@ -218,7 +221,6 @@ const check = {
             text.innerText = constant.PW_DIFFERENT;
             text.style.color = color.x;
         }
-
         if (!elements.pw2.value) {
             validation['pw2'].confirm = false;
             text.innerText = '';
@@ -363,7 +365,6 @@ const action = {
         } else {
             document.body.style.overflow = 'hidden';
             const invalidatedValue = Object.values(validation).find((e) => !e.confirm);
-            const invalidatedKey = Object.keys(validation).find((key) => validation[key] == invalidatedValue);
             makeModal(invalidatedValue.msg);
             //TODO focus()
         }
@@ -406,26 +407,30 @@ const action = {
     displayAgreeModal() {
         const agreementModal = $("#agreementModal");
         const agreementContent = $('.agreementContent')[0];
-        const agreementBtn = $('.agreementBtn')[0];
         document.body.style.overflow = 'hidden';
         agreementModal.style.display = "block";
         $('.agreement')[0].firstElementChild.className = 'closeBtn';
         closeModal();
-        //TODO 콜백함수 분리
-        agreementContent.addEventListener("scroll", (e) => {
-            if (e.target.scrollHeight - e.target.scrollTop <= e.target.clientHeight) {
-                agreementBtn.style.border = '1px solid #0aa603';
-                agreementBtn.style.background = '#0aa603';
-                agreementBtn.style.cursor = 'pointer';
-                agreementBtn.disabled = false;
-            }
-        });
-        agreementBtn.addEventListener("click", () => {
-            validation['agreement'].confirm = true;
-            elements.agreement.checked = true;
-            agreementModal.style.display = "none";
-            document.body.style.overflow = 'auto';
-        });
+        agreementContent.addEventListener("scroll", action.scrollAgreeModal);
+    },
+
+    scrollAgreeModal(e) {
+        const agreementBtn = $('.agreementBtn')[0];
+        if (e.target.scrollHeight - e.target.scrollTop <= e.target.clientHeight) {
+            agreementBtn.style.border = '1px solid #0aa603';
+            agreementBtn.style.background = '#0aa603';
+            agreementBtn.style.cursor = 'pointer';
+            agreementBtn.disabled = false;
+        }
+        agreementBtn.addEventListener("click", action.ActivatedAgreeBtn);
+    },
+
+    ActivatedAgreeBtn() {
+        const agreementModal = $("#agreementModal");
+        validation['agreement'].confirm = true;
+        elements.agreement.checked = true;
+        agreementModal.style.display = "none";
+        document.body.style.overflow = 'auto';
     }
 };
 
