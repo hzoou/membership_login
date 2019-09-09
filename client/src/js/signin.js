@@ -1,4 +1,4 @@
-import {$, fetchAPI} from "./utils.js";
+import {$, fetchAPI, makeModal} from "./utils.js";
 
 const validation = {
     'id': {
@@ -49,30 +49,8 @@ const init = {
             else self.location.href = '/mypage';
         } else {
             const element = (Object.values(validation).find((e) => !e.confirm));
-            init.makeModal(element.msg);
+            makeModal(element.msg);
         }
-    },
-
-    makeModal(msg) {
-        const alert = document.createElement('div');
-        alert.className = 'alert';
-        alert.innerHTML = `<div class="closeBtn">&times;</div>
-                           <div>${msg}</div>`;
-        $('#submitModal').appendChild(alert);
-        $('#submitModal').style.display = "block";
-        init.closeModal();
-    },
-
-    closeModal() {
-        const closeBtn = $('.closeBtn')[0];
-        closeBtn.addEventListener("click", () => {
-            document.body.style.overflow = 'auto';
-            const parentNode = closeBtn.parentNode;
-            const grandNode = closeBtn.parentNode.parentNode;
-            if (parentNode.className != 'agreement') parentNode.remove();
-            grandNode.style.display = "none";
-            closeBtn.className = '';
-        });
     },
 
     check(el) {

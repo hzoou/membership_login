@@ -18,4 +18,25 @@ const fetchAPI = (uri, method, body) => {
     });
 };
 
-export {$, fetchAPI};
+const makeModal = (msg) => {
+    const alert = document.createElement('div');
+    alert.className = 'alert';
+    alert.innerHTML = `<div class="closeBtn">&times;</div>
+                           <div>${msg}</div>`;
+    $('#submitModal').appendChild(alert);
+    $('#submitModal').style.display = "block";
+    closeModal();
+};
+
+const closeModal = () => {
+    const closeBtn = $('.closeBtn')[0];
+    closeBtn.addEventListener("click", () => {
+        document.body.style.overflow = 'auto';
+        const parentNode = closeBtn.parentNode;
+        const grandNode = closeBtn.parentNode.parentNode;
+        if (parentNode.className != 'agreement') parentNode.remove();
+        grandNode.style.display = "none";
+    });
+};
+
+export {$, fetchAPI, makeModal, closeModal};

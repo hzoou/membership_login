@@ -1,4 +1,4 @@
-import {$, fetchAPI} from "./utils.js";
+import {$, fetchAPI, makeModal, closeModal} from "./utils.js";
 
 const constant = {
     'ID_INCORRECT': '5~20자의 영문 소문자, 숫자와 특수기호(_)(-) 만 사용 가능합니다.',
@@ -364,13 +364,8 @@ const action = {
             document.body.style.overflow = 'hidden';
             const invalidatedValue = Object.values(validation).find((e) => !e.confirm);
             const invalidatedKey = Object.keys(validation).find((key) => validation[key] == invalidatedValue);
-            const alert = document.createElement('div');
-            alert.className = 'alert';
-            alert.innerHTML = `<div class="closeBtn">&times;</div>
-                               <div>${invalidatedValue.msg}</div>`;
-            $('#submitModal').appendChild(alert);
-            $('#submitModal').style.display = "block";
-            action.closeModal(invalidatedKey);
+            makeModal(invalidatedValue.msg);
+            //TODO focus()
         }
     },
 
@@ -384,7 +379,7 @@ const action = {
         $('#resetModal').appendChild(confirm);
         $('#resetModal').style.display = "block";
         action.clickResetBtn();
-        action.closeModal();
+        closeModal();
     },
 
     clickResetBtn() {
@@ -415,7 +410,7 @@ const action = {
         document.body.style.overflow = 'hidden';
         agreementModal.style.display = "block";
         $('.agreement')[0].firstElementChild.className = 'closeBtn';
-        action.closeModal();
+        closeModal();
         //TODO 콜백함수 분리
         agreementContent.addEventListener("scroll", (e) => {
             if (e.target.scrollHeight - e.target.scrollTop <= e.target.clientHeight) {
@@ -430,22 +425,6 @@ const action = {
             elements.agreement.checked = true;
             agreementModal.style.display = "none";
             document.body.style.overflow = 'auto';
-        });
-    },
-
-    closeModal(key) {
-        const closeBtn = $('.closeBtn');
-        [].forEach.call(closeBtn, (el) => {
-            el.addEventListener("click", () => {
-                document.body.style.overflow = 'auto';
-                const parentNode = el.parentNode;
-                const grandNode = el.parentNode.parentNode;
-                if (parentNode.className != 'agreement') parentNode.remove();
-                grandNode.style.display = "none";
-                el.className = '';
-                const element = elements[key];
-                if (element) element.focus();
-            });
         });
     }
 };
