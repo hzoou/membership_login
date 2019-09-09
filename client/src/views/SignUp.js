@@ -6,7 +6,7 @@ class SignUp {
     }
 
     render() {
-        return `<div>
+        return `<form id="form">
                     <div id="title">회원가입</div>
                     <div>아이디</div>
                     <div class="inputText">
@@ -78,9 +78,9 @@ class SignUp {
                     <div id="button">
                         <input type="button" class="button" value="초기화" id="resetBtn"/>
                         <div style="width: 25px"></div>
-                        <input type="submit" class="button" value="가입하기" id="submitBtn"/>
+                        <input type="button" class="button" value="가입하기" id="submitBtn"/>
                     </div>
-                </div>
+                </form>
                 
                 <div id="agreementModal" class="modal">
                     <div class="agreement">

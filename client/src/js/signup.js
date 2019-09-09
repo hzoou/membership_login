@@ -110,12 +110,9 @@ const init = {
         [].forEach.call(element, (el) => {
             let parentNode = el.parentNode;
             if (el.id === 'interest') parentNode = el.parentNode.parentNode;
-            el.addEventListener("focus", () => {
-                parentNode.style.border = '1px solid #0aa603'
-            });
-            el.addEventListener("blur", () => {
-                parentNode.style.border = '1px solid #cac9c9'
-            });
+            el.addEventListener("focus", () => {parentNode.style.border = '1px solid #0aa603'});
+            el.addEventListener("blur", () => {parentNode.style.border = '1px solid #cac9c9'});
+            el.addEventListener("keydown", (e) => {if (e.key === 'Enter') e.preventDefault()});
         });
     },
 
