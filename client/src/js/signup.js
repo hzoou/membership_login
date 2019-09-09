@@ -392,7 +392,6 @@ const action = {
             document.body.style.overflow = 'auto';
             grandNode.style.display = "none";
             Object.keys(validation).forEach((e) => validation[e].confirm = false);
-            console.log(validation);
             const span = $('span');
             [].forEach.call(span, (el) => {
                 if (el.id != 'birthTxt') el.innerText = '';
