@@ -386,8 +386,7 @@ const action = {
             $("#form").reset();
             const parentNode = resetBtn.parentNode;
             const grandNode = resetBtn.parentNode.parentNode;
-            const tag = $('.tag');
-            while (tag.length) elements.tags.removeChild(tag[0]);
+            while ($('.tag').length) $('.tag')[0].remove();
             parentNode.remove();
             document.body.style.overflow = 'auto';
             grandNode.style.display = "none";
