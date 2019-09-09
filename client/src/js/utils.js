@@ -12,7 +12,7 @@ const fetchAPI = (uri, method, body) => {
         if (res.ok) return res.json();
         throw new Error('Network response was not ok.');
     }).then((data) => {
-        return dnpata;
+        return data;
     }).catch((err) => {
         return alert(err.message);
     });
