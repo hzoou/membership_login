@@ -29,14 +29,16 @@ const makeModal = (msg) => {
 };
 
 const closeModal = () => {
-    const closeBtn = $('.closeBtn')[0];
-    closeBtn.addEventListener("click", () => {
-        document.body.style.overflow = 'auto';
-        const parentNode = closeBtn.parentNode;
-        const grandNode = closeBtn.parentNode.parentNode;
-        if (parentNode.className != 'agreement') parentNode.remove();
-        grandNode.style.display = "none";
-    });
+    const closeBtn = $('.closeBtn');
+    [].forEach.call(closeBtn, (el) => {
+        el.addEventListener("click", () => {
+            document.body.style.overflow = 'auto';
+            const parentNode = el.parentNode;
+            const grandNode = el.parentNode.parentNode;
+            if (parentNode.className != 'agreement') parentNode.remove();
+            grandNode.style.display = "none";
+        });
+    })
 };
 
 export {$, fetchAPI, makeModal, closeModal};
