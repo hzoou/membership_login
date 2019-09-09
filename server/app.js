@@ -24,8 +24,7 @@ app.use('/mypage', mypage);
 app.use('/signup', signup);
 app.use('/signin', signin);
 app.use((req, res, next) => {
-    res.redirect(`http://localhost:3000/#${req.url.substr(1, req.url.length)}`);
-    // res.redirect(`https://membership-login-hzoou.herokuapp.com/#${req.url.substr(1, req.url.length)}`);
+   res.redirect(`./#${req.url.substr(1, req.url.length)}`);
 });
 
 module.exports = app;
