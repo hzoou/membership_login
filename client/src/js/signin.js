@@ -44,7 +44,7 @@ const init = {
             };
             const res = await fetchAPI('/signin', 'POST', body);
             if (res.status == "FAIL") {
-                init.makeModal(res.msg);
+                makeModal(res.msg);
             }
             else self.location.href = '/mypage';
         } else {
