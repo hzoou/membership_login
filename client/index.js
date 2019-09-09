@@ -28,16 +28,16 @@ const checkSession = async () => {
 };
 
 const routes = {
-    '': () => {
-        if (checkSession() === "SUCCESS") self.location.href = '/mypage';
+    '': async () => {
+        if (await checkSession() === "SUCCESS") self.location.href = '/mypage';
         else { deleteCookie('sessionId'); renderHtml(new Main()); }
     },
-    'signin': () => {
-        if (checkSession() === "SUCCESS") self.location.href = '/mypage';
+    'signin': async () => {
+        if (await checkSession() === "SUCCESS") self.location.href = '/mypage';
         else { deleteCookie('sessionId'); renderHtml(new SignIn()); }
     },
-    'signup': () => {
-        if (checkSession() === "SUCCESS") self.location.href = '/mypage';
+    'signup': async () => {
+        if (await checkSession() === "SUCCESS") self.location.href = '/mypage';
         else { deleteCookie('sessionId'); renderHtml(new SignUp()); }
     },
     otherwise() {
