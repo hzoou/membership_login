@@ -381,22 +381,21 @@ const action = {
     },
 
     clickResetBtn() {
-        const resetBtn = $('.resetBtn');
-        [].forEach.call(resetBtn, (el) => {
-            el.addEventListener("click", () => {
-                $("#form").reset();
-                const parentNode = el.parentNode;
-                const grandNode = el.parentNode.parentNode;
-                const tag = $('.tag');
-                while (tag.length) elements.tags.removeChild(tag[0]);
-                parentNode.remove();
-                document.body.style.overflow = 'auto';
-                grandNode.style.display = "none";
-                Object.keys(validation).forEach((e) => validation[e] = false);
-                const span = $('span');
-                [].forEach.call(span, (el) => {
-                    if (el.id != 'birthTxt') el.innerText = '';
-                });
+        const resetBtn = $('.resetBtn')[0];
+        resetBtn.addEventListener("click", () => {
+            $("#form").reset();
+            const parentNode = resetBtn.parentNode;
+            const grandNode = resetBtn.parentNode.parentNode;
+            const tag = $('.tag');
+            while (tag.length) elements.tags.removeChild(tag[0]);
+            parentNode.remove();
+            document.body.style.overflow = 'auto';
+            grandNode.style.display = "none";
+            Object.keys(validation).forEach((e) => validation[e].confirm = false);
+            console.log(validation);
+            const span = $('span');
+            [].forEach.call(span, (el) => {
+                if (el.id != 'birthTxt') el.innerText = '';
             });
         });
     },
