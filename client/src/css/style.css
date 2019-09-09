@@ -260,6 +260,7 @@ input[type=checkbox] {
     margin: 9rem auto;
     padding: 1.2rem 2rem;
     border: 1px solid #888;
+    border-radius: 10px;
     width: 25rem;
     height: 7rem;
 }
@@ -273,6 +274,7 @@ input[type=checkbox] {
     font-weight: 400;
     height: 1.5rem;
     border: 1px solid #0aa603;
+    border-radius: 10px;
     background: white;
     color: #0aa603;
     cursor: pointer;
