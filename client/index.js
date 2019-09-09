@@ -7,7 +7,7 @@ import Error from "./src/views/Error.js";
 
 const container = document.querySelector('.container');
 
-function renderHtml(page, url) {
+function renderHtml(page) {
     container.innerHTML = page.render();
     page.getScript();
 }
@@ -15,15 +15,15 @@ function renderHtml(page, url) {
 const routes = {
     '': () => {
         if (getCookie('sessionId')) self.location.href = '/mypage';
-        else renderHtml(new Main(), 'main');
+        else renderHtml(new Main());
     },
     'signin': () => {
         if (getCookie('sessionId')) self.location.href = '/mypage';
-        else renderHtml(new SignIn(), 'signin');
+        else renderHtml(new SignIn());
     },
     'signup': () => {
         if (getCookie('sessionId')) self.location.href = '/mypage';
-        else renderHtml(new SignUp(), 'signup');
+        else renderHtml(new SignUp());
     },
     otherwise() {
         renderHtml(new Error(location.hash.replace('#', '')))
