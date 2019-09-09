@@ -302,3 +302,24 @@ input[type=checkbox] {
     text-shadow: none;
     opacity: 1;
 }
+
+.userInfo {
+    display: inline-block;
+    background: white;
+    border: 1px solid #b1b1b1;
+    padding: 3rem;
+}
+
+.info {
+    font-size: 18px;
+}
+
+.key {
+    font-weight: bold;
+    width: 8rem;
+}
+
+.infoContent {
+    margin: 0 auto;
+    width: fit-content;
+}

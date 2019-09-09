@@ -1,0 +1,42 @@
+doctype html
+head
+    title 회원정보
+    meta(charset='UTF-8')
+    link(rel='shortcut icon' type='image/x-icon' href='https://i.imgur.com/EB0bNmk.png')
+    link(rel='stylesheet' href='../../../src/css/bootstrap.min.css')
+    link(rel='stylesheet' href='../../../src/css/style.css')
+header
+    ul#navigation
+        li
+            a(href='../mypage') 마이페이지
+        li
+            a(href='../mypage/info') 회원정보
+        li
+            a(href='../logout') 로그아웃
+#form.container(style='width: -webkit-fill-available;')
+    div
+        #title #{userName}님의 회원정보
+    .infoContent
+        table.userInfo
+            tr.info
+                td.key 아이디
+                td.value #{userId}
+            tr.info
+                td.key 이름
+                td.tt #{userName}
+            tr.info
+                td.key 생일
+                td.value #{userBirth}
+            tr.info
+                td.key 성별
+                td.value #{userGender}
+            tr.info
+                td.key 이메일
+                td.value #{userEmail}
+            tr.info
+                td.key 휴대전화
+                td.value #{userPhone}
+            tr.info
+                td.key 관심사
+                td.value #{userInterest}
+footer &copy;2019 Boostcamp Membership, hzoou

@@ -12,4 +12,26 @@ router.get('/', (req, res) => {
     }
 });
 
+router.get('/info', (req, res) => {
+    if (req.cookies.sessionId) {
+        const sessionId = req.cookies.sessionId;
+        const userData = getUserBySession(sessionId);
+        if (userData) {
+            console.log(userData);
+            res.render('info',
+                {
+                    userId: userData.id,
+                    userName: userData.name,
+                    userBirth: userData.birth,
+                    userGender: userData.gender,
+                    userEmail: userData.email,
+                    userPhone: userData.phone,
+                    userInterest: userData.interest
+                });
+        }
+    } else {
+        res.render('index');
+    }
+});
+
 module.exports = router;
