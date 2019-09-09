@@ -24,23 +24,55 @@ const userDB = {
 
 const sessionDB = {};
 
+/**
+ * Insert user data in userDB
+ * @param {string} id
+ * @param {string} info
+ * @returns {Object} user data
+ */
 const insertUser = (id, info) => {
     userDB[id] = info;
     return userDB[id];
 };
 
+/**
+ * Check if userDB has the id
+ * @param {string} id
+ * @returns {boolean}
+ */
 const haveId = (id) => (!!userDB[id]);
 
+/**
+ * Check if password matches the id
+ * @param {string} id
+ * @param {string} pw
+ * @returns {boolean}
+ */
 const isCorrectPw = (id, pw) => userDB[id].pw === pw;
 
+/**
+ * Create session by user
+ * @param {string} sessionId
+ * @param {string} userId
+ */
 const createSession = (sessionId, userId) => sessionDB[sessionId] = userId;
 
+/**
+ * Get user by session
+ * @param {string} sessionId
+ * @returns {boolean|Object}
+ */
 const getUserBySession = (sessionId) => {
     const userId = sessionDB[sessionId];
     if (userId) return userDB[userId];
     else return false;
 };
 
+/**
+ * Delete session
+ * @param {string} sessionId
+ * @returns {boolean}
+ */
 const deleteSession = (sessionId) => delete sessionDB[sessionId];
 
 
