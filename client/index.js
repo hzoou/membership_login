@@ -14,15 +14,15 @@ function renderHtml(page, url) {
 
 const routes = {
     '': () => {
-        if (getCookie('sessionId')) self.location.href = './mypage';
+        if (getCookie('sessionId')) self.location.href = '/mypage';
         else renderHtml(new Main(), 'main');
     },
     'signin': () => {
-        if (getCookie('sessionId')) self.location.href = './mypage';
+        if (getCookie('sessionId')) self.location.href = '/mypage';
         else renderHtml(new SignIn(), 'signin');
     },
     'signup': () => {
-        if (getCookie('sessionId')) self.location.href = './mypage';
+        if (getCookie('sessionId')) self.location.href = '/mypage';
         else renderHtml(new SignUp(), 'signup');
     },
     otherwise() {

@@ -46,7 +46,7 @@ const init = {
             if (res.status == "FAIL") {
                 init.makeModal(res.msg);
             }
-            else self.location.href = `././mypage`;
+            else self.location.href = '/mypage';
         } else {
             const element = (Object.values(validation).find((e) => !e.confirm));
             init.makeModal(element.msg);
