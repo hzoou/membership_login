@@ -6,6 +6,7 @@ const signup = require('./routes/signup');
 const signin = require('./routes/signin');
 const mypage = require('./routes/mypage');
 const logout = require('./routes/logout');
+const error = require('./routes/error');
 const app = express();
 
 app.use(cookieParser());
@@ -23,8 +24,6 @@ app.use('/logout', logout);
 app.use('/mypage', mypage);
 app.use('/signup', signup);
 app.use('/signin', signin);
-app.use((req, res, next) => {
-   res.redirect(`/#${req.url.substr(1, req.url.length)}`);
-});
+app.use(error);
 
 module.exports = app;
