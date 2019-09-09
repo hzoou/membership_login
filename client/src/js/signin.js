@@ -45,8 +45,7 @@ const init = {
             const res = await fetchAPI('/signin', 'POST', body);
             if (res.status == "FAIL") {
                 makeModal(res.msg);
-            }
-            else self.location.href = '/mypage';
+            } else self.location.href = '/mypage';
         } else {
             const element = (Object.values(validation).find((e) => !e.confirm));
             makeModal(element.msg);
