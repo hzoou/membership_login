@@ -131,6 +131,7 @@ const init = {
         elements.phone.addEventListener("blur", check.phone);
         elements.interest.addEventListener("keyup", check.interest);
         elements.interest.addEventListener("keyup", action.addInterest);
+        elements.interest.addEventListener("keydown", action.handleInterest);
         elements.agreeBtn.addEventListener("click", action.displayAgreeModal);
         elements.resetBtn.addEventListener("click", action.displayResetModal);
         elements.submitBtn.addEventListener("click", action.displaySubmitModal);
@@ -290,7 +291,7 @@ const check = {
         }
     },
 
-    phone() {g
+    phone() {
         const phoneRegex = /^010[0-9]{7,8}$/;
         const text = $('#phoneTxt');
         if (!phoneRegex.test(elements.phone.value)) {
@@ -342,6 +343,10 @@ const action = {
             tag.remove();
             check.interest();
         }
+    },
+
+    handleInterest() {
+        elements.interest.value = elements.interest.value.replace(",", "");
     },
 
     async displaySubmitModal() {
