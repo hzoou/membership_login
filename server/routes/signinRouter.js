@@ -9,7 +9,7 @@ router.post('/', (req, res) => {
         if (isCorrectPw(req.body.id, req.body.pw)) {
             const sessionId = uuid4();
             createSession(sessionId, req.body.id);
-            res.cookie('sessionId', sessionId)
+            res.cookie('sessionId', sessionId, {maxAge: 60 * 30 * 1000})
                 .status(200)
                 .send({
                     status: "SUCCESS",
