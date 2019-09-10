@@ -75,5 +75,4 @@ const getUserBySession = (sessionId) => {
  */
 const deleteSession = (sessionId) => delete sessionDB[sessionId];
 
-
 module.exports = {insertUser, haveId, isCorrectPw, createSession, getUserBySession, deleteSession};

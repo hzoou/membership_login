@@ -19,9 +19,7 @@ router.get('/info', (req, res) => {
             userEmail: userData.email,
             userPhone: userData.phone,
             userInterest: userData.interest});
-    } else {
-        res.redirect('./../');
-    }
+    } else res.redirect('./../');
 });
 
 module.exports = router;
