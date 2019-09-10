@@ -29,4 +29,11 @@ header
                 u #{userName}
             | 님, 만나서 반가습니당 ~~~ (흐흐) 🙊
             br
+        #button(style='\
+        width: 90%;\
+        margin: 40px auto;\
+        ')
+            input.button(type='button' value='회원정보' onclick="location.href='../mypage/info'")
+            div(style='width: 25px')
+            input.button(type='button' value='로그아웃' onclick="location.href='../logout'")
 footer &copy;2019 Boostcamp Membership, hzoou
