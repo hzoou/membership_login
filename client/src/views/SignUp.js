@@ -25,7 +25,7 @@ class SignUp {
                     <span id="pw2Txt"></span>
                     <div>이름</div>
                     <div class="inputText">
-                        <input type="text" id="name" name="name" class="element" />
+                        <input type="text" id="name" name="name" class="element" maxlength="5" />
                     </div>
                     <div>생년월일</div>
                     <div class="birth">
