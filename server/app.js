@@ -2,12 +2,12 @@ const cookieParser = require('cookie-parser');
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
-const signup = require('./routes/signup');
-const signin = require('./routes/signin');
-const mypage = require('./routes/mypage');
-const logout = require('./routes/logout');
-const error = require('./routes/error');
-const session = require('./routes/session');
+const signupRouter = require('./routes/signupRouter');
+const signinRouter = require('./routes/signinRouter');
+const mypageRouter = require('./routes/mypageRouter');
+const logoutRouter = require('./routes/logoutRouter');
+const errorRouter = require('./routes/errorRouter');
+const sessionRouter = require('./routes/sessionRouter');
 const app = express();
 
 app.use(cookieParser());
@@ -21,11 +21,11 @@ app.use(express.urlencoded({extended: false}));
 const dirPath = __dirname;
 app.use(express.static(path.join(dirPath.replace("/server", "/client"))));
 
-app.use('/session', session);
-app.use('/logout', logout);
-app.use('/mypage', mypage);
-app.use('/signup', signup);
-app.use('/signin', signin);
-app.use(error);
+app.use('/session', sessionRouter);
+app.use('/logout', logoutRouter);
+app.use('/mypage', mypageRouter);
+app.use('/signup', signupRouter);
+app.use('/signin', signinRouter);
+app.use(errorRouter);
 
 module.exports = app;
