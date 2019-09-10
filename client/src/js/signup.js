@@ -130,7 +130,8 @@ const init = {
         elements.email.addEventListener("blur", check.email);
         elements.phone.addEventListener("blur", check.phone);
         elements.interest.addEventListener("keyup", check.interest);
-        elements.interest.addEventListener("keyup", action.addInterest);
+        elements.interest.addEventListener("keyup", action.removeInterest);
+        elements.interest.addEventListener("keydown", action.addInterest);
         elements.agreeBtn.addEventListener("click", action.displayAgreeModal);
         elements.resetBtn.addEventListener("click", action.displayResetModal);
         elements.submitBtn.addEventListener("click", action.displaySubmitModal);
@@ -269,6 +270,7 @@ const check = {
             validation['day'].confirm = true;
             text.innerText = '';
         }
+        check.year();
     },
 
     gender() {
