@@ -6,7 +6,7 @@ const signupRouter = require('./routes/signupRouter');
 const signinRouter = require('./routes/signinRouter');
 const mypageRouter = require('./routes/mypageRouter');
 const logoutRouter = require('./routes/logoutRouter');
-const errorRouter = require('./routes/errorRouter');
+const error = require('./routes/error');
 const sessionRouter = require('./routes/sessionRouter');
 const app = express();
 
@@ -26,6 +26,6 @@ app.use('/logout', logoutRouter);
 app.use('/mypage', mypageRouter);
 app.use('/signup', signupRouter);
 app.use('/signin', signinRouter);
-app.use(errorRouter);
+app.use(error);
 
 module.exports = app;
