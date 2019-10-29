@@ -51,6 +51,31 @@ server
 └── app.js
 ```
 
+### Preview
+
+> 메인 페이지
+>
+![](https://i.imgur.com/cMPRWaT.png)
+
+
+> 로그인 페이지
+>
+![](https://i.imgur.com/x9HdjE9.png)
+
+
+> 회원가입 페이지
+>
+![](https://i.imgur.com/bCIA7C2.png)
+
+> 마이 페이지
+> 
+![](https://i.imgur.com/9GeIu4v.png)
+
+> 회원정보 페이지
+> 
+![](https://i.imgur.com/9ZhvwOK.png)
+
+
 ### 🏠 [Homepage : https://membership-login-hzoou.herokuapp.com/](https://membership-login-hzoou.herokuapp.com/)
 
 ## Install
